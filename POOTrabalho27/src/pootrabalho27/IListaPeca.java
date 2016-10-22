@@ -10,37 +10,38 @@ package pootrabalho27;
  * @author Arcano
  */
 public interface IListaPeca {
-    
+
     /**
-     * 
-     * @param p 
+     *
+     * @param p
      */
     public void incluir(PecaAuto p);
-    
+
     /**
-     * 
-     * @param p 
+     *
+     * @param nome
+     * @param p
      */
-    public void editar(PecaAuto p);
-    
+    public void editar(String nome, PecaAuto p);
+
     /**
-     * 
-     * @param nome 
+     *
+     * @param nome
      */
     public void excluir(String nome);
-    
+
     /**
-     * 
+     *
      * @param nome
-     * @return 
+     * @return
      */
-    public PecaAuto consulta(String nome);
-    
+    public PecaAuto consultaPeca(String nome);
+
     /**
-     * 
-     * @param valor
-     * @return 
+     *
+     * @param nome
+     * @return
      */
-    public PecaAuto consultarValor(Double valor);
-    
+    public PecaAuto consultarFabricante(String nome);
+
 }

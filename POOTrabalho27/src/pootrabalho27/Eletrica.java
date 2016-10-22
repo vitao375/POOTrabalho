@@ -14,10 +14,9 @@ public class Eletrica extends PecaAuto{
    private  double voltagem;
    private Sistemas sistema;
 
-    public Eletrica(String tipoDaPeca, String modeloCarro, Double valor, 
-                     int quantidade, String nome, String fabricanteP,
-                     double amperagem, double voltagem, Sistemas sistema) {
-        super(tipoDaPeca, modeloCarro, valor, quantidade, nome, fabricanteP);
+    public Eletrica(String fabricanteP,String modeloCarro, Double valor, 
+                     int quantidade, String nome,double amperagem, double voltagem, Sistemas sistema) {
+        super(fabricanteP, modeloCarro, valor, quantidade, nome);
         this.amperagem = amperagem;
         this.voltagem = voltagem;
         this.sistema = sistema;

@@ -5,44 +5,85 @@
  */
 package pootrabalho27;
 
-
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  *
  * @author Arcano
  */
 public class ListaPeca implements IListaPeca {
 
-    List<PecaAuto> lista =  new ArrayList<>();
-    
-    
-    @Override
-    public void incluir(PecaAuto p) {
-    lista.add(p);
-   
-        
-    }
+    List<PecaAuto> lista = new ArrayList<>();
 
     @Override
-    public void editar(PecaAuto p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void incluir(PecaAuto p) {
+        try {
+            lista.add(p);
+        } catch (Exception e) {
+            System.out.println(" Erro " + e);
+        }
+
     }
 
     @Override
     public void excluir(String nome) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PecaAuto peca = this.consultaPeca(nome);
+        try {
+            this.lista.remove(peca);
+
+        } catch (Exception e) {
+            System.out.println("Erro " + e);
+        }
+
     }
 
     @Override
-    public PecaAuto consulta(String nome) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void editar(String nome, PecaAuto p) {
+
+        try {
+            for (PecaAuto peca : lista) {
+                if (peca.getNome() == nome) {
+                    int indice = this.lista.indexOf(peca);
+                    this.lista.set(indice, p);
+                }
+
+            }
+        } catch (Exception e) {
+            System.out.println("Erro " + e);
+        }
+
     }
 
     @Override
-    public PecaAuto consultarValor(Double valor) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public PecaAuto consultaPeca(String nome) {
+        try {
+            for (PecaAuto pecaAuto : lista) {
+                if (pecaAuto.getNome() == nome) {
+                    return pecaAuto;
+                }
+
+            }
+        } catch (Exception e) {
+            System.out.println("Erro " + e);
+        }
+        return null;
+
     }
-    
+
+    @Override
+    public PecaAuto consultarFabricante(String fabricantePeca) {
+        try {
+            for (PecaAuto pecaAuto : lista) {
+                if (pecaAuto.getFabricanteP() == fabricantePeca) {
+                    return pecaAuto;
+                }
+
+            }
+        } catch (Exception e) {
+            System.out.println("Erro " + e);
+        }
+        return null;
+
+    }
+
 }
