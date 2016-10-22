@@ -19,9 +19,10 @@ public interface IListaPeca {
     
     /**
      * 
+     * @param nome
      * @param p 
      */
-    public void editar(PecaAuto p);
+    public void editar(String nome, PecaAuto p);
     
     /**
      * 
@@ -34,7 +35,7 @@ public interface IListaPeca {
      * @param nome
      * @return 
      */
-    public PecaAuto consulta(String nome);
+    public PecaAuto consultaPeca(String nome);
     
     /**
      * 
