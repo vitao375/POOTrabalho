@@ -23,8 +23,10 @@ public enum Sistemas {
      *
      * @return
      */
-    public Sistemas verifica(){
+    public Sistemas verifica(int valor){
         for (Sistemas sistema : Sistemas.values()) {
+            
+            if(sistema.getSistemas() == valor)
             return sistema;
         }
         return null;

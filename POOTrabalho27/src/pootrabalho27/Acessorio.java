@@ -10,6 +10,55 @@ package pootrabalho27;
  * @author vitao375
  */
 public class Acessorio extends PecaAuto{
-    String cor;
-    Material material;
+    private String cor;
+    private Material material;
+
+    public Acessorio(String tipoDaPeca, String modeloCarro, Double valor,
+            int quantidade, String nome, String fabricanteP, String cor, Material material) {
+        super(tipoDaPeca, modeloCarro, valor, quantidade, nome, fabricanteP);
+        this.cor = cor;
+        this.material = material;
+    }
+
+    /**
+     * @return the cor
+     */
+    public String getCor() {
+        return cor;
+    }
+
+    /**
+     * @param cor the cor to set
+     */
+    public void setCor(String cor) {
+        this.cor = cor;
+    }
+
+    /**
+     * @return the material
+     */
+    public Material getMaterial() {
+        return material;
+    }
+
+    /**
+     * @param material the material to set
+     */
+    public void setMaterial(Material material) {
+        this.material = material;
+    }
+    
+    @Override
+    public String toString() {
+        String dados=super.toString();
+        dados+= "Cor " + cor; 
+        dados+= "Material " + material;
+         
+        
+    return dados;
+    
+    }
+    
+    
+    
 }

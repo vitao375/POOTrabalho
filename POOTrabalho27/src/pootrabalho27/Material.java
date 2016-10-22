@@ -21,7 +21,7 @@ public enum Material {
     }
     public Material verifica(int material){
         for (Material a : Material.values()) {
-            if(a.getMaterial()==material){
+            if(a.getMaterial()== material){
                 return a;
             }
         }
