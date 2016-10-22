@@ -18,6 +18,7 @@ public abstract class PecaAuto {
     protected String fabricanteP;
 
     public PecaAuto(String tipoDaPeca, String modeloCarro, Double valor, int quantidade, String nome, String fabricanteP) {
+        
         this.tipoDaPeca = tipoDaPeca;
         this.modeloCarro = modeloCarro;
         this.valor = valor;
