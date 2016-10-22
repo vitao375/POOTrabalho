@@ -30,8 +30,6 @@ public class FrameView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jComboBoxTipo = new javax.swing.JComboBox<>();
         jTextFieldBusca = new javax.swing.JTextField();
@@ -41,9 +39,10 @@ public class FrameView extends javax.swing.JPanel {
         jButtonIncluir = new javax.swing.JButton();
         jButtonEditar = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
+        jButtonDetalhes = new javax.swing.JButton();
 
         jComboBoxTipo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo da Peça", "Nome" }));
+        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome", "Fabricante" }));
         jComboBoxTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxTipoActionPerformed(evt);
@@ -75,6 +74,9 @@ public class FrameView extends javax.swing.JPanel {
         jButtonExcluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonExcluir.setText("Excluir");
 
+        jButtonDetalhes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonDetalhes.setText("Detalhes");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -82,10 +84,11 @@ public class FrameView extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBoxTipo, 0, 1, Short.MAX_VALUE)
+                    .addComponent(jComboBoxTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonIncluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))
+                    .addComponent(jButtonExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonDetalhes, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
@@ -109,36 +112,51 @@ public class FrameView extends javax.swing.JPanel {
                         .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 202, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonDetalhes, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
                         .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1))
                 .addGap(67, 67, 67))
-        );
-
-        jTabbedPane1.addTab("Peças Auto", jPanel2);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 2, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 3, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 14, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 14, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
+        String [] textMessages = {"Elétrica","Acessorios", "Mecanica", "Cancelar"};
+        int x = JOptionPane.showOptionDialog(null, "Texto", "Título",
+            JOptionPane.WHEN_IN_FOCUSED_WINDOW, JOptionPane.QUESTION_MESSAGE,
+            null, textMessages, null);
+        System.out.println(x);
+        switch(x){
+            case 0:
+            FrameEletrica abrirEletrica = new FrameEletrica();
+
+            break;
+            case 1:
+            FrameAcessorios abrirAcessorio = new FrameAcessorios();
+            break;
+            case 2:
+            FrameMecanica abrirMecanica = new FrameMecanica();
+            break;
+        }
+    }//GEN-LAST:event_jButtonIncluirActionPerformed
 
     private void jTextFieldBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBuscaActionPerformed
         // TODO add your handling code here:
@@ -148,38 +166,17 @@ public class FrameView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxTipoActionPerformed
 
-    private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
-       String [] textMessages = {"Elétrica","Acessorios", "Mecanica", "Cancelar"}; 
-        int x = JOptionPane.showOptionDialog(null, "Texto", "Título",   
-                JOptionPane.WHEN_IN_FOCUSED_WINDOW, JOptionPane.QUESTION_MESSAGE,   
-                null, textMessages, null);
-        System.out.println(x);
-        switch(x){
-            case 0:
-                FrameEletrica abrirEletrica = new FrameEletrica();
-                
-                break;
-            case 1:
-                FrameAcessorios abrirAcessorio = new FrameAcessorios();
-                break;
-            case 2:
-                FrameMecanica abrirMecanica = new FrameMecanica();
-                break;
-        }
-    }//GEN-LAST:event_jButtonIncluirActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscar;
+    private javax.swing.JButton jButtonDetalhes;
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonIncluir;
     private javax.swing.JComboBox<String> jComboBoxTipo;
     private javax.swing.JList<String> jListPadrao;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextFieldBusca;
     // End of variables declaration//GEN-END:variables
 }
