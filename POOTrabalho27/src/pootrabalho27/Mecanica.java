@@ -12,8 +12,8 @@ package pootrabalho27;
 public class Mecanica extends PecaAuto{
     private Tipo tipo;
 
-    public Mecanica(String tipoDaPeca, String modeloCarro, Double valor, int quantidade, String nome, String fabricanteP, Tipo tipo) {
-        super(tipoDaPeca, modeloCarro, valor, quantidade, nome, fabricanteP);
+    public Mecanica( String fabricantePeca, String modeloCarro, Double valor, int quantidade, String nome, String fabricanteP, Tipo tipo) {
+        super( fabricantePeca, modeloCarro, valor, quantidade, nome);
         this.tipo = tipo;
         
         

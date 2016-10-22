@@ -13,9 +13,9 @@ public class Acessorio extends PecaAuto{
     private String cor;
     private Material material;
 
-    public Acessorio(String tipoDaPeca, String modeloCarro, Double valor,
+    public Acessorio(String  fabricantePeca, String modeloCarro, Double valor,
             int quantidade, String nome, String fabricanteP, String cor, Material material) {
-        super(tipoDaPeca, modeloCarro, valor, quantidade, nome, fabricanteP);
+        super( fabricantePeca, modeloCarro, valor, quantidade, nome);
         this.cor = cor;
         this.material = material;
     }

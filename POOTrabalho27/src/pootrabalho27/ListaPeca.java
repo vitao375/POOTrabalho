@@ -71,10 +71,10 @@ public class ListaPeca implements IListaPeca {
     }
 
     @Override
-    public PecaAuto consultarValor(Double valor) {
+    public PecaAuto consultarFabricante(String fabricantePeca) {
         try {
             for (PecaAuto pecaAuto : lista) {
-                if (pecaAuto.getValor() == valor) {
+                if (pecaAuto.getFabricanteP() == fabricantePeca) {
                     return pecaAuto;
                 }
 

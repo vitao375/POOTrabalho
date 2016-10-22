@@ -39,9 +39,9 @@ public interface IListaPeca {
     
     /**
      * 
-     * @param valor
+     * @param nome
      * @return 
      */
-    public PecaAuto consultarValor(Double valor);
+    public PecaAuto consultarFabricante(String nome);
     
 }

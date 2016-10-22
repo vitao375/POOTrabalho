@@ -10,16 +10,16 @@ package pootrabalho27;
  * @author vitao375
  */
 public abstract class PecaAuto {
-    protected String tipoDaPeca;
+    protected String fabricantePeca;
     protected String modeloCarro;
     protected Double valor;
     protected int quantidade;
     protected String nome;
     protected String fabricanteP;
 
-    public PecaAuto(String tipoDaPeca, String modeloCarro, Double valor, int quantidade, String nome, String fabricanteP) {
+    public PecaAuto(String fabricantePeca, String modeloCarro, Double valor, int quantidade, String nome) {
         
-        this.tipoDaPeca = tipoDaPeca;
+        this.fabricantePeca = fabricantePeca;
         this.modeloCarro = modeloCarro;
         this.valor = valor;
         this.quantidade = quantidade;
@@ -29,17 +29,17 @@ public abstract class PecaAuto {
     }
 
     /**
-     * @return the tipoDaPeca
+     * @return the fabricanteP
      */
-    public String getTipoDaPeca() {
-        return tipoDaPeca;
+    public String getFabricanteP() {
+        return fabricanteP;
     }
 
     /**
-     * @param tipoDaPeca the tipoDaPeca to set
+     * @param fabricanteP the fabricanteP to set
      */
-    public void setTipoDaPeca(String tipoDaPeca) {
-        this.tipoDaPeca = tipoDaPeca;
+    public void setFabricanteP(String fabricanteP) {
+        this.fabricanteP = fabricanteP;
     }
 
     /**
@@ -98,29 +98,16 @@ public abstract class PecaAuto {
         this.nome = nome;
     }
 
-    /**
-     * @return the fabricanteP
-     */
-    public String getFabricanteP() {
-        return fabricanteP;
-    }
-
-    /**
-     * @param fabricanteP the fabricanteP to set
-     */
-    public void setFabricanteP(String fabricanteP) {
-        this.fabricanteP = fabricanteP;
-    }
+   
 
     @Override
     public String toString() {
         String dados="";
-        dados+= "Tipo Da Peça " + tipoDaPeca; 
+        dados+= "Fabricante Da Peça " + fabricantePeca; 
         dados+= "Modelo do Carro " + modeloCarro;
         dados+= "Valor " + valor; 
         dados+="Quantidade "+quantidade;
         dados+= "Nome " + nome;
-        dados+="Fabricante Da Peça " + fabricanteP;
     return dados;
     
     }
