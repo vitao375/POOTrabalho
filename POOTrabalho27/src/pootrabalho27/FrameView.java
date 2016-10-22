@@ -5,17 +5,20 @@
  */
 package pootrabalho27;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author vitao375
  */
 public class FrameView extends javax.swing.JPanel {
-
+    private ListaPeca lista;
     /**
      * Creates new form FrameView
      */
     public FrameView() {
         initComponents();
+    
     }
 
     /**
@@ -34,7 +37,7 @@ public class FrameView extends javax.swing.JPanel {
         jTextFieldBusca = new javax.swing.JTextField();
         jButtonBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList = new javax.swing.JList<>();
+        jListPadrao = new javax.swing.JList<>();
         jButtonIncluir = new javax.swing.JButton();
         jButtonEditar = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
@@ -56,10 +59,15 @@ public class FrameView extends javax.swing.JPanel {
         jButtonBuscar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonBuscar.setText("Buscar");
 
-        jScrollPane1.setViewportView(jList);
+        jScrollPane1.setViewportView(jListPadrao);
 
         jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonIncluir.setText("Incluir");
+        jButtonIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIncluirActionPerformed(evt);
+            }
+        });
 
         jButtonEditar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonEditar.setText("Editar");
@@ -140,6 +148,26 @@ public class FrameView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxTipoActionPerformed
 
+    private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
+       String [] textMessages = {"Elétrica","Acessorios", "Mecanica", "Cancelar"}; 
+        int x = JOptionPane.showOptionDialog(null, "Texto", "Título",   
+                JOptionPane.WHEN_IN_FOCUSED_WINDOW, JOptionPane.QUESTION_MESSAGE,   
+                null, textMessages, null);
+        System.out.println(x);
+        switch(x){
+            case 0:
+                FrameEletrica abrirEletrica = new FrameEletrica();
+                
+                break;
+            case 1:
+                FrameAcessorios abrirAcessorio = new FrameAcessorios();
+                break;
+            case 2:
+                FrameMecanica abrirMecanica = new FrameMecanica();
+                break;
+        }
+    }//GEN-LAST:event_jButtonIncluirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscar;
@@ -147,7 +175,7 @@ public class FrameView extends javax.swing.JPanel {
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonIncluir;
     private javax.swing.JComboBox<String> jComboBoxTipo;
-    private javax.swing.JList<String> jList;
+    private javax.swing.JList<String> jListPadrao;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
