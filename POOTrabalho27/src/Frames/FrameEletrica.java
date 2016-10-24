@@ -1,9 +1,11 @@
+package Frames;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pootrabalho27;
+
 
 /**
  *
@@ -102,6 +104,11 @@ public class FrameEletrica extends javax.swing.JFrame {
 
         jButtonVoltar1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonVoltar1.setText("Voltar");
+        jButtonVoltar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVoltar1ActionPerformed(evt);
+            }
+        });
 
         jTextFieldValor1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextFieldValor1.addActionListener(new java.awt.event.ActionListener() {
@@ -182,9 +189,8 @@ public class FrameEletrica extends javax.swing.JFrame {
                     .addContainerGap()
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabelTipoPeca1)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelModelo1)
-                            .addComponent(jTextFieldTipoPeca1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextFieldTipoPeca1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelModelo1)
                         .addComponent(jTextFieldModelo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,6 +266,11 @@ public class FrameEletrica extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldModelo1ActionPerformed
 
+    private void jButtonVoltar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltar1ActionPerformed
+        // TODO add your handling code here:
+        new FrameView().setVisible(true);
+    }//GEN-LAST:event_jButtonVoltar1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -285,6 +296,9 @@ public class FrameEletrica extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrameEletrica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

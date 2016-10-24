@@ -1,9 +1,15 @@
+package Frames;
+
+import ClassesPeca.PecaAuto;
+import Lista.ListaPeca;
+import java.util.List;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pootrabalho27;
+
 
 /**
  *
@@ -14,8 +20,25 @@ public class FrameMecanica extends javax.swing.JFrame {
     /**
      * Creates new form FrameMecanica
      */
-    public FrameMecanica() {
+    ListaPeca mecanica;
+    List<PecaAuto> lista;
+    public FrameMecanica(String acao, String nome, List<PecaAuto> listaMecanica) {
+        lista= listaMecanica;
         initComponents();
+        switch(acao){
+            case "Incluir":
+                
+                break;
+            case "Editar":
+                
+                break;
+            case "Excluir":
+                
+                break;
+            case "Consultar":
+                
+                break;
+        }
     }
 
     /**
@@ -167,7 +190,7 @@ public class FrameMecanica extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jComboBoxTipo2)
                     .addComponent(jLabelTipo2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSalvar)
                     .addComponent(jButtonVoltar))
@@ -230,11 +253,14 @@ public class FrameMecanica extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrameMecanica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrameMecanica().setVisible(true);
+                new FrameMecanica(null,null,null).setVisible(true);
             }
         });
     }
