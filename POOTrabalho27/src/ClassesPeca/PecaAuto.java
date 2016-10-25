@@ -17,6 +17,14 @@ public abstract class PecaAuto {
     protected String nome;
     protected String fabricanteP;
 
+    /**
+     * Construtor da classe PecaAuto que contem seus principais atributos
+     * @param fabricantePeca
+     * @param modeloCarro
+     * @param valor
+     * @param quantidade
+     * @param nome 
+     */
     public PecaAuto(String fabricantePeca, String modeloCarro, Double valor, int quantidade, String nome) {
         
         this.fabricantePeca = fabricantePeca;

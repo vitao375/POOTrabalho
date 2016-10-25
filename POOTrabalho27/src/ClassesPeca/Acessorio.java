@@ -15,6 +15,16 @@ public class Acessorio extends PecaAuto{
     private String cor;
     private Material material;
 
+    /**
+     * Construtor da classe Acessorio contendo os atributos dela
+     * @param fabricantePeca
+     * @param modeloCarro
+     * @param valor
+     * @param quantidade
+     * @param nome
+     * @param cor
+     * @param material 
+     */
     public Acessorio(String  fabricantePeca, String modeloCarro, Double valor,
             int quantidade, String nome, String cor, Material material) {
         super( fabricantePeca, modeloCarro, valor, quantidade, nome);

@@ -16,6 +16,10 @@ public class ListaPeca implements IListaPeca {
 
     static List<PecaAuto> lista = new ArrayList<>();
 
+    /**
+     * Método no qual inclui um novo cadastro de peça na lista PecaAuto.
+     * @param p objeto do tipo PecaAuto
+     */
     @Override
     public void incluir(PecaAuto p) {
         try {
@@ -25,7 +29,12 @@ public class ListaPeca implements IListaPeca {
         }
 
     }
-
+    
+    /**
+     * Método que irá percorrer a lista PecaAuto e excluirá o objeto cadastrado
+     * que for desejado pelo usuário.
+     * @param nome 
+     */
     @Override
     public void excluir(String nome) {
         PecaAuto peca = this.consultaPeca(nome);
@@ -38,6 +47,12 @@ public class ListaPeca implements IListaPeca {
 
     }
 
+    /**
+     * Método no qual faz a edição de um objeto contido na lista PecaAuto, fazendo
+     * alterações nos campos desejados pelo usuário.
+     * @param nome
+     * @param p 
+     */
     @Override
     public void editar(String nome, PecaAuto p) {
 
@@ -55,6 +70,12 @@ public class ListaPeca implements IListaPeca {
 
     }
 
+    /**
+     * Método no qual irá fazer a consulta por Peça, percorrendo a lista PecaAuto
+     * @param nome
+     * @return a lista pecaAuto caso conter determinados elementos OU retorna null
+     * caso não existir elementos contidos na mesma.
+     */
     @Override
     public PecaAuto consultaPeca(String nome) {
         try {
@@ -71,6 +92,12 @@ public class ListaPeca implements IListaPeca {
 
     }
 
+    /**
+     * Método no qual irá fazer a consulta pelo Fabricante, percorrendo a lista PecaAuto
+     * @param fabricantePeca
+     * @return Os objetos contidos nessa lista OU null caso não conter elementos
+     * contidos nela.
+     */
     @Override
     public PecaAuto consultarFabricante(String fabricantePeca) {
         try {
@@ -87,6 +114,10 @@ public class ListaPeca implements IListaPeca {
 
     }
     
+    /**
+     * Método no qual retorna a lista PecaAuto
+     * @return lista PecaAuto
+     */
     public List<PecaAuto> getLista(){
         return lista;
     }

@@ -20,6 +20,12 @@ public enum Tipo {
     public int getTipo(){
         return tipo;
     }
+    
+    /**
+     * Método que realiza a verificação do tipo de peça que compõe um carro
+     * @param tipo
+     * @return a lista contendo a
+     */
     public static Tipo verifica(int tipo){
         for (Tipo a : Tipo.values()) {
             if(a.getTipo()==tipo){

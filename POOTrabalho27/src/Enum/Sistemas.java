@@ -20,8 +20,8 @@ public enum Sistemas {
     }
 
     /**
-     *
-     * @return
+     * Método que faz a verificação do tipo de sistema de peça.
+     * @return a lista sistema OU null caso não cestiver nada contido.
      */
     public static Sistemas verifica(int valor){
         for (Sistemas sistema : Sistemas.values()) {

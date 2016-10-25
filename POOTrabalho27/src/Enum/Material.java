@@ -19,6 +19,12 @@ public enum Material {
     public int getMaterial(){
         return tipo;
     }
+    
+    /**
+     * Método que realiza a verificação do tipo de componente de material.
+     * @param material
+     * @return a lista atribuida a.
+     */
     public static Material verifica(int material){
         for (Material a : Material.values()) {
             if(a.getMaterial()== material){

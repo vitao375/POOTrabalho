@@ -14,6 +14,15 @@ import Enum.Tipo;
 public class Mecanica extends PecaAuto{
     private Tipo tipo;
 
+    /**
+     * Construtor da classe Mecanica que contém os principais atributos da mesma
+     * @param fabricantePeca
+     * @param modeloCarro
+     * @param valor
+     * @param quantidade
+     * @param nome
+     * @param tipo 
+     */
     public Mecanica( String fabricantePeca, String modeloCarro, Double valor, int quantidade, String nome, Tipo tipo) {
         super( fabricantePeca, modeloCarro, valor, quantidade, nome);
         this.tipo = tipo;

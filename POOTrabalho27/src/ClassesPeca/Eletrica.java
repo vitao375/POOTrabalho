@@ -16,6 +16,17 @@ public class Eletrica extends PecaAuto{
    private  double voltagem;
    private Sistemas sistema;
 
+   /**
+    * Construtor da classe Eletrica que contem os principais atributos dela
+    * @param fabricanteP
+    * @param modeloCarro
+    * @param valor
+    * @param quantidade
+    * @param nome
+    * @param amperagem
+    * @param voltagem
+    * @param sistema 
+    */
     public Eletrica(String fabricanteP,String modeloCarro, Double valor, 
                      int quantidade, String nome,double amperagem, double voltagem, Sistemas sistema) {
         super(fabricanteP, modeloCarro, valor, quantidade, nome);
