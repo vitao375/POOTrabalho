@@ -16,17 +16,14 @@ import java.util.List;
  * @author vitao375
  */
 public class FrameAcessorios extends javax.swing.JFrame {
-    ListaPeca acessorio;
-    List<PecaAuto> lista;
-    String acao;
-    String nome;
+    private String acao;
+    private String nome;
+    public static ListaPeca lista = new ListaPeca();
     /**
      * Creates new form FrameAcessorio
      */
-    public FrameAcessorios(String acao, String nome, List<PecaAuto> listaMecanica,ListaPeca list) {
+    public FrameAcessorios(String acao, String nome) {
         initComponents();
-        lista = listaMecanica;
-        acessorio = list;
         this.acao = acao;
         this.nome = nome;
         initComponents();
@@ -215,23 +212,23 @@ public class FrameAcessorios extends javax.swing.JFrame {
         switch (acao) {
             case "Incluir":
                 Acessorio incluir = new Acessorio(jTextFieldFabricante.getText(),
-                jTextFieldModelo.getText(),Double.parseDouble(jTextFieldValor.getText()),
-                Integer.parseInt(jTextFieldQuantidade.getText()),jTextFieldNome.getText(),
+                jTextFieldModelo.getText(),Double.valueOf(jTextFieldValor.getText()),
+                Integer.valueOf(jTextFieldQuantidade.getText()),jTextFieldNome.getText(),
                         jTextFieldCor.getText(),Material.verifica(jComboBox1.getSelectedIndex()));
-                acessorio.incluir(incluir);
+                FrameView.lista.incluir(incluir);
                 limparCampos();
                break;
             case "Editar":
-                Acessorio a = (Acessorio) acessorio.consultaPeca(nome);
+                Acessorio a = (Acessorio) FrameView.lista.consultaPeca(nome);
                 preencherCampos(a);
                 Acessorio editar = new Acessorio(jTextFieldFabricante.getText(),
                 jTextFieldModelo.getText(),Double.parseDouble(jTextFieldValor.getText()),
                 Integer.parseInt(jTextFieldQuantidade.getText()),jTextFieldNome.getText(),
                         jTextFieldCor.getText(),Material.verifica(jComboBox1.getSelectedIndex()));
-                acessorio.editar(nome, editar);
+                FrameView.lista.editar(nome, editar);
                 break;
             case "Consultar":
-                Acessorio consultar = (Acessorio) acessorio.consultaPeca(nome);
+                Acessorio consultar = (Acessorio) FrameView.lista.consultaPeca(nome);
                 preencherCampos(consultar);
                 break;
         }
@@ -268,7 +265,7 @@ public class FrameAcessorios extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrameAcessorios(null,null,null,null).setVisible(true);
+                new FrameAcessorios(null,null).setVisible(true);
             }
         });
     }

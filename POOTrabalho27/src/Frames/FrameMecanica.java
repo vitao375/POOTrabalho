@@ -16,17 +16,13 @@ import java.util.List;
  * @author vitao375
  */
 public class FrameMecanica extends javax.swing.JFrame {
-
+    public static ListaPeca lista = new ListaPeca();
     /**
      * Creates new form FrameMecanica
      */
-    ListaPeca mecanica;
-    List<PecaAuto> lista;
-    String acao;
-    String nome;
-    public FrameMecanica(String acao, String nome, List<PecaAuto> listaMecanica, ListaPeca list) {
-        lista = listaMecanica;
-        mecanica = list;
+    private String acao;
+    private String nome;
+    public FrameMecanica(String acao, String nome) {
         this.acao=acao;
         this.nome = nome;
         initComponents();
@@ -205,24 +201,24 @@ public class FrameMecanica extends javax.swing.JFrame {
         switch (acao) {
             case "Incluir":
                 Mecanica incluir = new Mecanica(jTextFieldFabricante.getText(),
-                        jTextFieldModelo.getText(), Double.parseDouble(jTextFieldValor.getText()),
-                        Integer.parseInt(jTextFieldQuantidade.getText()), jTextFieldNome.getText(),
+                        jTextFieldModelo.getText(), Double.valueOf(jTextFieldValor.getText()),
+                        Integer.valueOf(jTextFieldQuantidade.getText()), jTextFieldNome.getText(),
                         Tipo.verifica(jComboBoxTipo2.getSelectedIndex()));
 
-                mecanica.incluir(incluir);
+                FrameView.lista.incluir(incluir);
                 break;
             case "Editar":
-                Mecanica editar = (Mecanica) mecanica.consultaPeca(nome);
+                Mecanica editar = (Mecanica) FrameView.lista.consultaPeca(nome);
                 preencherCampos(editar);
                 Mecanica edita = new Mecanica(jTextFieldFabricante.getText(),
-                        jTextFieldModelo.getText(), Double.parseDouble(jTextFieldValor.getText()),
-                        Integer.parseInt(jTextFieldQuantidade.getText()), jTextFieldNome.getText(),
+                        jTextFieldModelo.getText(), Double.valueOf(jTextFieldValor.getText()),
+                        Integer.valueOf(jTextFieldQuantidade.getText()), jTextFieldNome.getText(),
                         Tipo.verifica(jComboBoxTipo2.getSelectedIndex()));
 
-                mecanica.editar(nome, edita);
+                FrameView.lista.editar(nome, edita);
                 break;
             case "Consultar":
-                Mecanica consultar = (Mecanica) mecanica.consultaPeca(nome);
+                Mecanica consultar = (Mecanica) FrameView.lista.consultaPeca(nome);
                 preencherCampos(consultar);
                 jButtonSalvar.setVisible(false);
                 break;
@@ -259,7 +255,7 @@ public class FrameMecanica extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrameMecanica(null,null,null,null).setVisible(true);
+                new FrameMecanica(null,null).setVisible(true);
             }
         });
     }
