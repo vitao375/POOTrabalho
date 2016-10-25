@@ -14,7 +14,7 @@ import Enum.Tipo;
 public class Mecanica extends PecaAuto{
     private Tipo tipo;
 
-    public Mecanica( String fabricantePeca, String modeloCarro, Double valor, int quantidade, String nome, String fabricanteP, Tipo tipo) {
+    public Mecanica( String fabricantePeca, String modeloCarro, Double valor, int quantidade, String nome, Tipo tipo) {
         super( fabricantePeca, modeloCarro, valor, quantidade, nome);
         this.tipo = tipo;
         

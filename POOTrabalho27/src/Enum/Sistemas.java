@@ -10,7 +10,7 @@ package Enum;
  * @author vitao375
  */
 public enum Sistemas {
-    IGNICAO(1), ALIMENTACAO(2), SINALIZACAO(3), OUTRO(4);
+    IGNICAO(0), ALIMENTACAO(1), SINALIZACAO(2), OUTRO(3);
     private final int tipo;
     private Sistemas(int tipo){
         this.tipo = tipo;
@@ -23,7 +23,7 @@ public enum Sistemas {
      *
      * @return
      */
-    public Sistemas verifica(int valor){
+    public static Sistemas verifica(int valor){
         for (Sistemas sistema : Sistemas.values()) {
             
             if(sistema.getSistemas() == valor)

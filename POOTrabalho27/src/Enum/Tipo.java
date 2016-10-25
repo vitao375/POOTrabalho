@@ -12,7 +12,7 @@ package Enum;
  * @author vitao375
  */
 public enum Tipo {
-    MOTOR(1),DIRECAO(2), TRANSMISSAO(3), SUSPENSAO(4), FREIO(5), OUTRO(6); 
+    MOTOR(0),DIRECAO(1), TRANSMISSAO(2), SUSPENSAO(3), FREIO(4), OUTRO(5); 
     private final int tipo;
     private Tipo(int tipo){
         this.tipo=tipo;
@@ -20,7 +20,7 @@ public enum Tipo {
     public int getTipo(){
         return tipo;
     }
-    public Tipo verifica(int tipo){
+    public static Tipo verifica(int tipo){
         for (Tipo a : Tipo.values()) {
             if(a.getTipo()==tipo){
                 return a;

@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class ListaPeca implements IListaPeca {
 
-    List<PecaAuto> lista = new ArrayList<>();
+    static List<PecaAuto> lista = new ArrayList<>();
 
     @Override
     public void incluir(PecaAuto p) {

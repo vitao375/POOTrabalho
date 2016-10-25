@@ -24,7 +24,6 @@ public abstract class PecaAuto {
         this.valor = valor;
         this.quantidade = quantidade;
         this.nome = nome;
-        this.fabricanteP = fabricanteP;
           
     }
 
@@ -104,10 +103,10 @@ public abstract class PecaAuto {
     public String toString() {
         String dados="";
         dados+= "Fabricante Da Peça " + fabricantePeca; 
-        dados+= "Modelo do Carro " + modeloCarro;
-        dados+= "Valor " + valor; 
-        dados+="Quantidade "+quantidade;
-        dados+= "Nome " + nome;
+        dados+= " Modelo do Carro " + modeloCarro;
+        dados+= " Valor " + valor; 
+        dados+= " Quantidade "+quantidade;
+        dados+= " Nome " + nome;
     return dados;
     
     }

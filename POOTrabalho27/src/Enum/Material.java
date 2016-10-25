@@ -11,7 +11,7 @@ package Enum;
  */
 public enum Material {
     
-    PLASTICO(1),METAL(2),CARBONO(3),OUTRO(4); 
+    PLASTICO(0),METAL(1),CARBONO(2),OUTRO(3); 
     private final int tipo;
     private Material(int tipo){
         this.tipo=tipo;
@@ -19,7 +19,7 @@ public enum Material {
     public int getMaterial(){
         return tipo;
     }
-    public Material verifica(int material){
+    public static Material verifica(int material){
         for (Material a : Material.values()) {
             if(a.getMaterial()== material){
                 return a;

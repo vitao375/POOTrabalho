@@ -22,9 +22,9 @@ import javax.swing.JOptionPane;
 public class FrameView extends javax.swing.JFrame {
 
     ListaPeca lista = new ListaPeca();
-    List<PecaAuto> listaMecanica;
-    List<PecaAuto> listaAcessorios;
-    List<PecaAuto> listaEletrica;
+    List<PecaAuto> listaMecanica=new ArrayList();
+    List<PecaAuto> listaAcessorio=new ArrayList();
+    List<PecaAuto> listaEletrica=new ArrayList();
 
     /**
      * Creates new form FrameView
@@ -37,7 +37,7 @@ public class FrameView extends javax.swing.JFrame {
         if (aux != null) {
             for (PecaAuto p : aux) {
                 if (p instanceof Acessorio) {
-                    listaAcessorios.add(p);
+                    listaAcessorio.add(p);
                 } else if (p instanceof Mecanica) {
                     listaMecanica.add(p);
                 } else if (p instanceof Eletrica) {
@@ -103,6 +103,7 @@ public class FrameView extends javax.swing.JFrame {
             }
         });
 
+        jListPadrao.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jScrollPane1.setViewportView(jListPadrao);
 
         jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -123,6 +124,11 @@ public class FrameView extends javax.swing.JFrame {
 
         jButtonExcluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonExcluir.setText("Excluir");
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
 
         jButtonDetalhes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonDetalhes.setText("Detalhes");
@@ -227,17 +233,22 @@ public class FrameView extends javax.swing.JFrame {
         int x = JOptionPane.showOptionDialog(null, "Escolha o tipo de Peça", "Incluir",
                 JOptionPane.WHEN_IN_FOCUSED_WINDOW, JOptionPane.QUESTION_MESSAGE,
                 null, textMessages, null);
-        System.out.println(x);
+
         switch (x) {
             case 0:
-                FrameEletrica abrirEletrica = new FrameEletrica();
-
+                FrameEletrica abrirEletrica = new FrameEletrica("Incluir", null, listaEletrica,lista);
+                abrirEletrica.setVisible(true);
+                this.dispose();
                 break;
             case 1:
-                FrameAcessorios abrirAcessorio = new FrameAcessorios();
+                FrameAcessorios abrirAcessorio = new FrameAcessorios("Incluir", null, listaAcessorio,lista);
+                abrirAcessorio.setVisible(true);
+                this.dispose();
                 break;
             case 2:
-                FrameMecanica abrirMecanica = new FrameMecanica("Incluir", null, listaMecanica);
+                FrameMecanica abrirMecanica = new FrameMecanica("Incluir", null, listaMecanica,lista);
+                abrirMecanica.setVisible(true);
+                this.dispose();
                 break;
         }
     }//GEN-LAST:event_jButtonIncluirActionPerformed
@@ -247,6 +258,7 @@ public class FrameView extends javax.swing.JFrame {
         String buscaTipo = jComboBoxBuscaTipo.getSelectedItem().toString();
         PecaAuto aux;
         List<PecaAuto> listaAux;
+        String aa=jTextFieldBusca.getText();
         if (jTextFieldBusca.getText().trim().equals("")) {
             listaAux = lista.getLista();
             listar(listaAux);
@@ -276,26 +288,33 @@ public class FrameView extends javax.swing.JFrame {
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
 
         String editar = JOptionPane.showInputDialog(null, "Informe o Nome da peca a ser Editada");
-        System.out.println(editar);
+
         if (editar != null) {
             String[] textMessages = {"Elétrica", "Acessorios", "Mecanica", "Cancelar"};
             int x = JOptionPane.showOptionDialog(null, "Escolha o tipo de Peça", "Editar",
                     JOptionPane.WHEN_IN_FOCUSED_WINDOW, JOptionPane.QUESTION_MESSAGE,
                     null, textMessages, null);
-            System.out.println(x);
+
             switch (x) {
                 case 0:
-                    FrameEletrica abrirEletrica = new FrameEletrica();
-
+                    FrameEletrica abrirEletrica = new FrameEletrica("Editar", editar, listaEletrica,lista);
+                    abrirEletrica.setVisible(true);
+                    this.dispose();
                     break;
                 case 1:
-                    FrameAcessorios abrirAcessorio = new FrameAcessorios();
+                    FrameAcessorios abrirAcessorio = new FrameAcessorios("Editar", editar, listaEletrica,lista);
+                    abrirAcessorio.setVisible(true);
+                    this.dispose();
                     break;
                 case 2:
-                    FrameMecanica abrirMecanica = new FrameMecanica("Editar", editar, listaMecanica);
+                    FrameMecanica abrirMecanica = new FrameMecanica("Editar", editar, listaMecanica,lista);
+                    abrirMecanica.setVisible(true);
+                    this.dispose();
                     break;
             }
 
+        } else {
+            JOptionPane.showMessageDialog(null, "Não encontrado");
         }
 
     }//GEN-LAST:event_jButtonEditarActionPerformed
@@ -303,24 +322,46 @@ public class FrameView extends javax.swing.JFrame {
     private void jButtonDetalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDetalhesActionPerformed
 
         String detalhes = JOptionPane.showInputDialog(null, "Informe o Nome da peca a ser Consultada");
+        if (detalhes != null) {
+            String[] textMessages = {"Elétrica", "Acessorios", "Mecanica", "Cancelar"};
+            int x = JOptionPane.showOptionDialog(null, "Escolha o tipo de Peça", "Detalhes",
+                    JOptionPane.WHEN_IN_FOCUSED_WINDOW, JOptionPane.QUESTION_MESSAGE,
+                    null, textMessages, null);
 
-        String[] textMessages = {"Elétrica", "Acessorios", "Mecanica", "Cancelar"};
-        int x = JOptionPane.showOptionDialog(null, "Escolha o tipo de Peça", "Detalhes",
-                JOptionPane.WHEN_IN_FOCUSED_WINDOW, JOptionPane.QUESTION_MESSAGE,
-                null, textMessages, null);
-        System.out.println(x);
-        switch (x) {
-            case 0:
-                FrameEletrica abrirEletrica = new FrameEletrica();
-                break;
-            case 1:
-                FrameAcessorios abrirAcessorio = new FrameAcessorios();
-                break;
-            case 2:
-                FrameMecanica abrirMecanica = new FrameMecanica("Consultar", detalhes, listaMecanica);
-                break;
+            switch (x) {
+                case 0:
+                    FrameEletrica abrirEletrica = new FrameEletrica("Consultar", detalhes, listaEletrica,lista);
+                    abrirEletrica.setVisible(true);
+                    this.dispose();
+                    break;
+                case 1:
+                    FrameAcessorios abrirAcessorio = new FrameAcessorios("Consultar", detalhes, listaAcessorio,lista);
+                    abrirAcessorio.setVisible(true);
+                    this.dispose();
+                    break;
+                case 2:
+                    FrameMecanica abrirMecanica = new FrameMecanica("Consultar", detalhes, listaMecanica,lista);
+                    abrirMecanica.setVisible(true);
+                    this.dispose();
+                    break;
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Não encontrado");
         }
+
     }//GEN-LAST:event_jButtonDetalhesActionPerformed
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        String excluir = JOptionPane.showInputDialog(null, "Informe o Nome da peca a ser Excluida");
+        if (excluir != null) {
+            
+            lista.excluir(excluir);
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "Não encontrado");
+        }
+
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -381,7 +422,7 @@ public class FrameView extends javax.swing.JFrame {
             jListPadrao.setModel(listaPadrao);
         } else {
             for (PecaAuto p : peca) {
-                listaPadrao.addElement(p);
+                listaPadrao.addElement(p.toString());
             }
             jListPadrao.setModel(listaPadrao);
         }
