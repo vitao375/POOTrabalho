@@ -21,10 +21,10 @@ import javax.swing.JOptionPane;
  */
 public class FrameView extends javax.swing.JFrame {
 
-    ListaPeca lista = new ListaPeca();
-    List<PecaAuto> listaMecanica=new ArrayList();
-    List<PecaAuto> listaAcessorio=new ArrayList();
-    List<PecaAuto> listaEletrica=new ArrayList();
+    public static ListaPeca lista = new ListaPeca();
+    public static List<PecaAuto> listaMecanica = new ArrayList();
+    public static List<PecaAuto> listaAcessorio = new ArrayList();
+    public static List<PecaAuto> listaEletrica = new ArrayList();
 
     /**
      * Creates new form FrameView
@@ -236,17 +236,17 @@ public class FrameView extends javax.swing.JFrame {
 
         switch (x) {
             case 0:
-                FrameEletrica abrirEletrica = new FrameEletrica("Incluir", null, listaEletrica,lista);
+                FrameEletrica abrirEletrica = new FrameEletrica("Incluir", null);
                 abrirEletrica.setVisible(true);
-                this.dispose();
+                
                 break;
             case 1:
-                FrameAcessorios abrirAcessorio = new FrameAcessorios("Incluir", null, listaAcessorio,lista);
+                FrameAcessorios abrirAcessorio = new FrameAcessorios("Incluir", null);
                 abrirAcessorio.setVisible(true);
                 this.dispose();
                 break;
             case 2:
-                FrameMecanica abrirMecanica = new FrameMecanica("Incluir", null, listaMecanica,lista);
+                FrameMecanica abrirMecanica = new FrameMecanica("Incluir", null);
                 abrirMecanica.setVisible(true);
                 this.dispose();
                 break;
@@ -258,7 +258,7 @@ public class FrameView extends javax.swing.JFrame {
         String buscaTipo = jComboBoxBuscaTipo.getSelectedItem().toString();
         PecaAuto aux;
         List<PecaAuto> listaAux;
-        String aa=jTextFieldBusca.getText();
+        String aa = jTextFieldBusca.getText();
         if (jTextFieldBusca.getText().trim().equals("")) {
             listaAux = lista.getLista();
             listar(listaAux);
@@ -297,17 +297,17 @@ public class FrameView extends javax.swing.JFrame {
 
             switch (x) {
                 case 0:
-                    FrameEletrica abrirEletrica = new FrameEletrica("Editar", editar, listaEletrica,lista);
+                    FrameEletrica abrirEletrica = new FrameEletrica("Editar", editar);
                     abrirEletrica.setVisible(true);
                     this.dispose();
                     break;
                 case 1:
-                    FrameAcessorios abrirAcessorio = new FrameAcessorios("Editar", editar, listaEletrica,lista);
+                    FrameAcessorios abrirAcessorio = new FrameAcessorios("Editar", editar);
                     abrirAcessorio.setVisible(true);
                     this.dispose();
                     break;
                 case 2:
-                    FrameMecanica abrirMecanica = new FrameMecanica("Editar", editar, listaMecanica,lista);
+                    FrameMecanica abrirMecanica = new FrameMecanica("Editar", editar);
                     abrirMecanica.setVisible(true);
                     this.dispose();
                     break;
@@ -330,17 +330,17 @@ public class FrameView extends javax.swing.JFrame {
 
             switch (x) {
                 case 0:
-                    FrameEletrica abrirEletrica = new FrameEletrica("Consultar", detalhes, listaEletrica,lista);
+                    FrameEletrica abrirEletrica = new FrameEletrica("Consultar", detalhes);
                     abrirEletrica.setVisible(true);
                     this.dispose();
                     break;
                 case 1:
-                    FrameAcessorios abrirAcessorio = new FrameAcessorios("Consultar", detalhes, listaAcessorio,lista);
+                    FrameAcessorios abrirAcessorio = new FrameAcessorios("Consultar", detalhes);
                     abrirAcessorio.setVisible(true);
                     this.dispose();
                     break;
                 case 2:
-                    FrameMecanica abrirMecanica = new FrameMecanica("Consultar", detalhes, listaMecanica,lista);
+                    FrameMecanica abrirMecanica = new FrameMecanica("Consultar", detalhes);
                     abrirMecanica.setVisible(true);
                     this.dispose();
                     break;
@@ -354,9 +354,9 @@ public class FrameView extends javax.swing.JFrame {
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         String excluir = JOptionPane.showInputDialog(null, "Informe o Nome da peca a ser Excluida");
         if (excluir != null) {
-            
+
             lista.excluir(excluir);
-            
+
         } else {
             JOptionPane.showMessageDialog(null, "Não encontrado");
         }

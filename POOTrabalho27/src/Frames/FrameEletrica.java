@@ -16,18 +16,16 @@ import java.util.List;
  * @author vitao375
  */
 public class FrameEletrica extends javax.swing.JFrame {
-
+    public static ListaPeca lista = new ListaPeca();
     /**
      * Creates new form FrameEletrica
      */
-    List<PecaAuto> lista;
-    ListaPeca eletrica;
-    String acao;
-    String nome;
-    public FrameEletrica(String acao, String nome, List<PecaAuto> listaMecanica,ListaPeca list) {
+  
+    
+    private String acao;
+    private String nome;
+    public FrameEletrica(String acao, String nome) {
         this.acao = acao;
-        lista = listaMecanica;
-        eletrica = list;
         this.nome = nome;
         initComponents();
     }
@@ -232,11 +230,11 @@ public class FrameEletrica extends javax.swing.JFrame {
                 Double.parseDouble(jTextFieldAmperagem.getText()),
                 Double.parseDouble(jTextFieldVoltagem.getText()),
                 Sistemas.verifica(jComboBoxTipoSistema.getSelectedIndex()));
-                eletrica.incluir(incluir);
+                FrameView.lista.incluir(incluir);
                 limparCampos();
                 break;
             case "Editar":
-                Eletrica e = (Eletrica)eletrica.consultaPeca(nome);
+                Eletrica e = (Eletrica)FrameView.lista.consultaPeca(nome);
                 preencherCampos(e);
                 Eletrica edita = new Eletrica(jTextFieldFabricante.getText(),
                 jTextFieldModelo.getText(),Double.parseDouble(jTextFieldValor.getText()),
@@ -244,11 +242,11 @@ public class FrameEletrica extends javax.swing.JFrame {
                 Double.parseDouble(jTextFieldAmperagem.getText()),
                 Double.parseDouble(jTextFieldVoltagem.getText()),
                 Sistemas.verifica(jComboBoxTipoSistema.getSelectedIndex()));
-                eletrica.editar(nome, edita);
+                FrameView.lista.editar(nome, edita);
                 limparCampos();
                 break;
             case "Consultar":
-                Eletrica consultar = (Eletrica) eletrica.consultaPeca(nome);
+                Eletrica consultar = (Eletrica) FrameView.lista.consultaPeca(nome);
                 preencherCampos(consultar);
                 desativarCampos();
                 jButtonSalvar.setText("Consultar");
@@ -324,7 +322,7 @@ public class FrameEletrica extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrameEletrica(null,null,null,null).setVisible(true);
+                new FrameEletrica(null,null).setVisible(true);
             }
         });
     }
