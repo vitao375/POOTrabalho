@@ -16,18 +16,21 @@ import java.util.List;
  * @author vitao375
  */
 public class FrameEletrica extends javax.swing.JFrame {
+
     public static ListaPeca lista = new ListaPeca();
+    private String acao;
+    private String nome;
+
     /**
      * Creates new form FrameEletrica
      */
-  
-    
-    private String acao;
-    private String nome;
+
     public FrameEletrica(String acao, String nome) {
+        this.setLocationRelativeTo(null);
+        this.setTitle("Peças Eletricas");
         this.acao = acao;
         this.nome = nome;
-        initComponents();
+        initComponents();      
     }
 
     /**
@@ -217,7 +220,7 @@ public class FrameEletrica extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-       new FrameView().setVisible(true);
+        new FrameView().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
@@ -225,28 +228,28 @@ public class FrameEletrica extends javax.swing.JFrame {
         switch (acao) {
             case "Incluir":
                 Eletrica incluir = new Eletrica(jTextFieldFabricante.getText(),
-                jTextFieldModelo.getText(),Double.parseDouble(jTextFieldValor.getText()),
-                Integer.parseInt(jTextFieldQuantidade.getText()),jTextFieldNome.getText(),
-                Double.parseDouble(jTextFieldAmperagem.getText()),
-                Double.parseDouble(jTextFieldVoltagem.getText()),
-                Sistemas.verifica(jComboBoxTipoSistema.getSelectedIndex()));
-                FrameView.lista.incluir(incluir);
+                        jTextFieldModelo.getText(), Double.valueOf(jTextFieldValor.getText()),
+                        Integer.parseInt(jTextFieldQuantidade.getText()), jTextFieldNome.getText(),
+                        Double.valueOf(jTextFieldAmperagem.getText()),
+                        Double.valueOf(jTextFieldVoltagem.getText()),
+                        Sistemas.verifica(jComboBoxTipoSistema.getSelectedIndex()));
+                        lista.incluir(incluir);
                 limparCampos();
                 break;
             case "Editar":
-                Eletrica e = (Eletrica)FrameView.lista.consultaPeca(nome);
+                Eletrica e = (Eletrica) lista.consultaPeca(nome);
                 preencherCampos(e);
                 Eletrica edita = new Eletrica(jTextFieldFabricante.getText(),
-                jTextFieldModelo.getText(),Double.parseDouble(jTextFieldValor.getText()),
-                Integer.parseInt(jTextFieldQuantidade.getText()),jTextFieldNome.getText(),
-                Double.parseDouble(jTextFieldAmperagem.getText()),
-                Double.parseDouble(jTextFieldVoltagem.getText()),
-                Sistemas.verifica(jComboBoxTipoSistema.getSelectedIndex()));
-                FrameView.lista.editar(nome, edita);
+                        jTextFieldModelo.getText(), Double.valueOf(jTextFieldValor.getText()),
+                        Integer.parseInt(jTextFieldQuantidade.getText()), jTextFieldNome.getText(),
+                        Double.valueOf(jTextFieldAmperagem.getText()),
+                        Double.valueOf(jTextFieldVoltagem.getText()),
+                        Sistemas.verifica(jComboBoxTipoSistema.getSelectedIndex()));
+                lista.editar(nome, edita);
                 limparCampos();
                 break;
             case "Consultar":
-                Eletrica consultar = (Eletrica) FrameView.lista.consultaPeca(nome);
+                Eletrica consultar = (Eletrica) lista.consultaPeca(nome);
                 preencherCampos(consultar);
                 desativarCampos();
                 jButtonSalvar.setText("Consultar");
@@ -255,7 +258,7 @@ public class FrameEletrica extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
-    public void preencherCampos(PecaAuto p){
+    public void preencherCampos(PecaAuto p) {
         Eletrica e = (Eletrica) p;
         jTextFieldFabricante.setText(e.getFabricanteP());
         jTextFieldModelo.setText(e.getModeloCarro());
@@ -265,7 +268,8 @@ public class FrameEletrica extends javax.swing.JFrame {
         jTextFieldAmperagem.setText(String.valueOf(e.getAmperagem()));
         jTextFieldVoltagem.setText(String.valueOf(e.getVoltagem()));
     }
-    public void limparCampos(){
+
+    public void limparCampos() {
         jTextFieldFabricante.setText("");
         jTextFieldModelo.setText("");
         jTextFieldNome.setText("");
@@ -274,7 +278,8 @@ public class FrameEletrica extends javax.swing.JFrame {
         jTextFieldAmperagem.setText("");
         jTextFieldVoltagem.setText("");
     }
-    public void desativarCampos(){
+
+    public void desativarCampos() {
         jTextFieldFabricante.setEnabled(false);
         jTextFieldModelo.setEnabled(false);
         jTextFieldNome.setEnabled(false);
@@ -283,7 +288,8 @@ public class FrameEletrica extends javax.swing.JFrame {
         jTextFieldAmperagem.setEnabled(false);
         jTextFieldVoltagem.setEnabled(false);
     }
-    public void ativarCampos(){
+
+    public void ativarCampos() {
         jTextFieldFabricante.setEnabled(true);
         jTextFieldModelo.setEnabled(true);
         jTextFieldNome.setEnabled(true);
@@ -292,6 +298,7 @@ public class FrameEletrica extends javax.swing.JFrame {
         jTextFieldAmperagem.setEnabled(true);
         jTextFieldVoltagem.setEnabled(true);
     }
+
     /**
      * @param args the command line arguments
      */
@@ -322,7 +329,7 @@ public class FrameEletrica extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrameEletrica(null,null).setVisible(true);
+                new FrameEletrica(null, null).setVisible(true);
             }
         });
     }

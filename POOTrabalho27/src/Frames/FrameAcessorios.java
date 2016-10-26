@@ -24,6 +24,8 @@ public class FrameAcessorios extends javax.swing.JFrame {
      */
     public FrameAcessorios(String acao, String nome) {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("Acessorios");
         this.acao = acao;
         this.nome = nome;
         initComponents();
@@ -215,20 +217,20 @@ public class FrameAcessorios extends javax.swing.JFrame {
                 jTextFieldModelo.getText(),Double.valueOf(jTextFieldValor.getText()),
                 Integer.valueOf(jTextFieldQuantidade.getText()),jTextFieldNome.getText(),
                         jTextFieldCor.getText(),Material.verifica(jComboBox1.getSelectedIndex()));
-                FrameView.lista.incluir(incluir);
+                lista.incluir(incluir);
                 limparCampos();
                break;
             case "Editar":
-                Acessorio a = (Acessorio) FrameView.lista.consultaPeca(nome);
+                Acessorio a = (Acessorio) lista.consultaPeca(nome);
                 preencherCampos(a);
                 Acessorio editar = new Acessorio(jTextFieldFabricante.getText(),
-                jTextFieldModelo.getText(),Double.parseDouble(jTextFieldValor.getText()),
+                jTextFieldModelo.getText(),Double.valueOf(jTextFieldValor.getText()),
                 Integer.parseInt(jTextFieldQuantidade.getText()),jTextFieldNome.getText(),
                         jTextFieldCor.getText(),Material.verifica(jComboBox1.getSelectedIndex()));
-                FrameView.lista.editar(nome, editar);
+                lista.editar(nome, editar);
                 break;
             case "Consultar":
-                Acessorio consultar = (Acessorio) FrameView.lista.consultaPeca(nome);
+                Acessorio consultar = (Acessorio) lista.consultaPeca(nome);
                 preencherCampos(consultar);
                 break;
         }

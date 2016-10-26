@@ -21,10 +21,10 @@ import javax.swing.JOptionPane;
  */
 public class FrameView extends javax.swing.JFrame {
 
-    public static ListaPeca lista = new ListaPeca();
-    public static List<PecaAuto> listaMecanica = new ArrayList();
-    public static List<PecaAuto> listaAcessorio = new ArrayList();
-    public static List<PecaAuto> listaEletrica = new ArrayList();
+    private  ListaPeca lista = new ListaPeca();
+    private  List<PecaAuto> listaMecanica = new ArrayList();
+    private  List<PecaAuto> listaAcessorio = new ArrayList();
+    private  List<PecaAuto> listaEletrica = new ArrayList();
 
     /**
      * Creates new form FrameView
@@ -238,7 +238,7 @@ public class FrameView extends javax.swing.JFrame {
             case 0:
                 FrameEletrica abrirEletrica = new FrameEletrica("Incluir", null);
                 abrirEletrica.setVisible(true);
-                
+                this.dispose();
                 break;
             case 1:
                 FrameAcessorios abrirAcessorio = new FrameAcessorios("Incluir", null);

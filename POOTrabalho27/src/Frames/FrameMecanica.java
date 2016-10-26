@@ -23,6 +23,8 @@ public class FrameMecanica extends javax.swing.JFrame {
     private String acao;
     private String nome;
     public FrameMecanica(String acao, String nome) {
+        this.setLocationRelativeTo(null);
+        this.setTitle("Peças Mecanicas");
         this.acao=acao;
         this.nome = nome;
         initComponents();
@@ -205,20 +207,20 @@ public class FrameMecanica extends javax.swing.JFrame {
                         Integer.valueOf(jTextFieldQuantidade.getText()), jTextFieldNome.getText(),
                         Tipo.verifica(jComboBoxTipo2.getSelectedIndex()));
 
-                FrameView.lista.incluir(incluir);
+                lista.incluir(incluir);
                 break;
             case "Editar":
-                Mecanica editar = (Mecanica) FrameView.lista.consultaPeca(nome);
+                Mecanica editar = (Mecanica) lista.consultaPeca(nome);
                 preencherCampos(editar);
                 Mecanica edita = new Mecanica(jTextFieldFabricante.getText(),
                         jTextFieldModelo.getText(), Double.valueOf(jTextFieldValor.getText()),
                         Integer.valueOf(jTextFieldQuantidade.getText()), jTextFieldNome.getText(),
                         Tipo.verifica(jComboBoxTipo2.getSelectedIndex()));
 
-                FrameView.lista.editar(nome, edita);
+                lista.editar(nome, edita);
                 break;
             case "Consultar":
-                Mecanica consultar = (Mecanica) FrameView.lista.consultaPeca(nome);
+                Mecanica consultar = (Mecanica) lista.consultaPeca(nome);
                 preencherCampos(consultar);
                 jButtonSalvar.setVisible(false);
                 break;

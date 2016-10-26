@@ -58,7 +58,7 @@ public class ListaPeca implements IListaPeca {
 
         try {
             for (PecaAuto peca : lista) {
-                if (peca.getNome() == nome) {
+                if (peca.getNome().equalsIgnoreCase(nome)) {
                     int indice = this.lista.indexOf(peca);
                     this.lista.set(indice, p);
                 }
@@ -80,7 +80,7 @@ public class ListaPeca implements IListaPeca {
     public PecaAuto consultaPeca(String nome) {
         try {
             for (PecaAuto pecaAuto : lista) {
-                if (pecaAuto.getNome() == nome) {
+                if (pecaAuto.getNome().equalsIgnoreCase(nome)) {
                     return pecaAuto;
                 }
 
@@ -102,7 +102,7 @@ public class ListaPeca implements IListaPeca {
     public PecaAuto consultarFabricante(String fabricantePeca) {
         try {
             for (PecaAuto pecaAuto : lista) {
-                if (pecaAuto.getFabricanteP() == fabricantePeca) {
+                if (pecaAuto.getFabricanteP().equalsIgnoreCase(fabricantePeca)) {
                     return pecaAuto;
                 }
 

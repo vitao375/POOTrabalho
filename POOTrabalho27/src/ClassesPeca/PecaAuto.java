@@ -12,7 +12,7 @@ package ClassesPeca;
 public abstract class PecaAuto {
     protected String fabricantePeca;
     protected String modeloCarro;
-    protected Double valor;
+    protected double valor;
     protected int quantidade;
     protected String nome;
     protected String fabricanteP;
