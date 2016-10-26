@@ -102,7 +102,7 @@ public class ListaPeca implements IListaPeca {
     public PecaAuto consultarFabricante(String fabricantePeca) {
         try {
             for (PecaAuto pecaAuto : lista) {
-                if (pecaAuto.getFabricanteP().equalsIgnoreCase(fabricantePeca)) {
+                if (pecaAuto.getFabricantePeca().equalsIgnoreCase(fabricantePeca)) {
                     return pecaAuto;
                 }
 

@@ -10,6 +10,7 @@ import ClassesPeca.PecaAuto;
 import Enum.Sistemas;
 import Lista.ListaPeca;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,19 +19,25 @@ import java.util.List;
 public class FrameEletrica extends javax.swing.JFrame {
 
     public static ListaPeca lista = new ListaPeca();
-    private String acao;
-    private String nome;
+    private final String acao;
+    private final String nome;
 
     /**
      * Creates new form FrameEletrica
+     *
+     * @param acao
+     * @param nome
      */
-
     public FrameEletrica(String acao, String nome) {
+        initComponents();
+        List<PecaAuto> a = lista.getLista();
         this.setLocationRelativeTo(null);
         this.setTitle("Peças Eletricas");
         this.acao = acao;
         this.nome = nome;
-        initComponents();      
+        if(acao.equals("Consultar")||acao.equals("Editar")){
+            consultar();
+        }
     }
 
     /**
@@ -233,12 +240,11 @@ public class FrameEletrica extends javax.swing.JFrame {
                         Double.valueOf(jTextFieldAmperagem.getText()),
                         Double.valueOf(jTextFieldVoltagem.getText()),
                         Sistemas.verifica(jComboBoxTipoSistema.getSelectedIndex()));
-                        lista.incluir(incluir);
+                lista.incluir(incluir);
                 limparCampos();
+                //adicionar o try catch
                 break;
             case "Editar":
-                Eletrica e = (Eletrica) lista.consultaPeca(nome);
-                preencherCampos(e);
                 Eletrica edita = new Eletrica(jTextFieldFabricante.getText(),
                         jTextFieldModelo.getText(), Double.valueOf(jTextFieldValor.getText()),
                         Integer.parseInt(jTextFieldQuantidade.getText()), jTextFieldNome.getText(),
@@ -247,20 +253,14 @@ public class FrameEletrica extends javax.swing.JFrame {
                         Sistemas.verifica(jComboBoxTipoSistema.getSelectedIndex()));
                 lista.editar(nome, edita);
                 limparCampos();
-                break;
-            case "Consultar":
-                Eletrica consultar = (Eletrica) lista.consultaPeca(nome);
-                preencherCampos(consultar);
-                desativarCampos();
-                jButtonSalvar.setText("Consultar");
-                limparCampos();
+                //adicionar o try catch
                 break;
         }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     public void preencherCampos(PecaAuto p) {
         Eletrica e = (Eletrica) p;
-        jTextFieldFabricante.setText(e.getFabricanteP());
+        jTextFieldFabricante.setText(e.getFabricantePeca());
         jTextFieldModelo.setText(e.getModeloCarro());
         jTextFieldNome.setText(e.getNome());
         jTextFieldQuantidade.setText(String.valueOf(e.getQuantidade()));
@@ -297,6 +297,20 @@ public class FrameEletrica extends javax.swing.JFrame {
         jTextFieldValor.setEnabled(true);
         jTextFieldAmperagem.setEnabled(true);
         jTextFieldVoltagem.setEnabled(true);
+    }
+
+    public final void consultar() {
+        Eletrica consultar = (Eletrica) lista.consultaPeca(nome);
+        if(acao.equals("Consultar")){
+            desativarCampos();
+            jButtonSalvar.setEnabled(false);
+        }       
+        if(consultar==null){
+            JOptionPane.showMessageDialog(null, "Não encontrado");
+        } else{
+            preencherCampos(consultar);          
+        }
+        
     }
 
     /**

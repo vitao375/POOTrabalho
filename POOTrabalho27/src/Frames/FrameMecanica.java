@@ -10,6 +10,7 @@ import ClassesPeca.PecaAuto;
 import Enum.Tipo;
 import Lista.ListaPeca;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,11 +24,15 @@ public class FrameMecanica extends javax.swing.JFrame {
     private String acao;
     private String nome;
     public FrameMecanica(String acao, String nome) {
+        initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Peças Mecanicas");
         this.acao=acao;
         this.nome = nome;
-        initComponents();
+        if(acao.equals("Consultar")||acao.equals("Editar")){
+            consultar();
+        }
+        
     }
 
     /**
@@ -208,22 +213,17 @@ public class FrameMecanica extends javax.swing.JFrame {
                         Tipo.verifica(jComboBoxTipo2.getSelectedIndex()));
 
                 lista.incluir(incluir);
+                limparCampos();
                 break;
             case "Editar":
-                Mecanica editar = (Mecanica) lista.consultaPeca(nome);
-                preencherCampos(editar);
                 Mecanica edita = new Mecanica(jTextFieldFabricante.getText(),
                         jTextFieldModelo.getText(), Double.valueOf(jTextFieldValor.getText()),
                         Integer.valueOf(jTextFieldQuantidade.getText()), jTextFieldNome.getText(),
                         Tipo.verifica(jComboBoxTipo2.getSelectedIndex()));
 
                 lista.editar(nome, edita);
-                break;
-            case "Consultar":
-                Mecanica consultar = (Mecanica) lista.consultaPeca(nome);
-                preencherCampos(consultar);
-                jButtonSalvar.setVisible(false);
-                break;
+                limparCampos();
+                break;            
         }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
@@ -264,7 +264,7 @@ public class FrameMecanica extends javax.swing.JFrame {
     
     public void preencherCampos(PecaAuto p) {
         Mecanica m = (Mecanica) p;
-        jTextFieldFabricante.setText(m.getFabricanteP());
+        jTextFieldFabricante.setText(m.getFabricantePeca());
         jTextFieldModelo.setText(m.getModeloCarro());
         jTextFieldNome.setText(m.getNome());
         jTextFieldQuantidade.setText(String.valueOf(m.getQuantidade()));
@@ -312,4 +312,17 @@ public class FrameMecanica extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldQuantidade;
     private javax.swing.JTextField jTextFieldValor;
     // End of variables declaration//GEN-END:variables
+
+    private void consultar() {
+        Mecanica consultar = (Mecanica) lista.consultaPeca(nome);
+        if(acao.equals("Consultar")){
+            desativarCampos();
+            jButtonSalvar.setEnabled(false);
+        }       
+        if(consultar==null){
+            JOptionPane.showMessageDialog(null, "Não encontrado");
+        } else{
+            preencherCampos(consultar);          
+        }
+    }
 }

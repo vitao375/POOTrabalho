@@ -38,15 +38,15 @@ public abstract class PecaAuto {
     /**
      * @return the fabricanteP
      */
-    public String getFabricanteP() {
-        return fabricanteP;
+    public String getFabricantePeca() {
+        return fabricantePeca;
     }
 
     /**
-     * @param fabricanteP the fabricanteP to set
+     * @param fabricantePeca the fabricanteP to set
      */
-    public void setFabricanteP(String fabricanteP) {
-        this.fabricanteP = fabricanteP;
+    public void setFabricantePeca(String fabricantePeca) {
+        this.fabricantePeca = fabricantePeca;
     }
 
     /**

@@ -10,6 +10,7 @@ import ClassesPeca.PecaAuto;
 import Enum.Material;
 import Lista.ListaPeca;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,7 +29,9 @@ public class FrameAcessorios extends javax.swing.JFrame {
         this.setTitle("Acessorios");
         this.acao = acao;
         this.nome = nome;
-        initComponents();
+        if(acao.equals("Consultar")||acao.equals("Editar")){
+            consultar();
+        }
        
     }
 
@@ -221,18 +224,14 @@ public class FrameAcessorios extends javax.swing.JFrame {
                 limparCampos();
                break;
             case "Editar":
-                Acessorio a = (Acessorio) lista.consultaPeca(nome);
-                preencherCampos(a);
                 Acessorio editar = new Acessorio(jTextFieldFabricante.getText(),
                 jTextFieldModelo.getText(),Double.valueOf(jTextFieldValor.getText()),
                 Integer.parseInt(jTextFieldQuantidade.getText()),jTextFieldNome.getText(),
                         jTextFieldCor.getText(),Material.verifica(jComboBox1.getSelectedIndex()));
                 lista.editar(nome, editar);
+                limparCampos();
                 break;
-            case "Consultar":
-                Acessorio consultar = (Acessorio) lista.consultaPeca(nome);
-                preencherCampos(consultar);
-                break;
+            
         }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
@@ -274,7 +273,7 @@ public class FrameAcessorios extends javax.swing.JFrame {
     
     public void preencherCampos(PecaAuto p){
         Acessorio a = (Acessorio) p;
-        jTextFieldFabricante.setText(a.getFabricanteP());
+        jTextFieldFabricante.setText(a.getFabricantePeca());
         jTextFieldModelo.setText(a.getModeloCarro());
         jTextFieldNome.setText(a.getNome());
         jTextFieldQuantidade.setText(String.valueOf(a.getQuantidade()));
@@ -321,4 +320,17 @@ public class FrameAcessorios extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldQuantidade;
     private javax.swing.JTextField jTextFieldValor;
     // End of variables declaration//GEN-END:variables
+
+    private void consultar() {
+        Acessorio consultar = (Acessorio) lista.consultaPeca(nome);
+        if(acao.equals("Consultar")){
+            desativarCampos();
+            jButtonSalvar.setEnabled(false);
+        }       
+        if(consultar==null){
+            JOptionPane.showMessageDialog(null, "Não encontrado");
+        } else{
+            preencherCampos(consultar);          
+        }
+    }
 }

@@ -6,8 +6,6 @@ package Frames;
  * and open the template in the editor.
  */
 import ClassesPeca.Acessorio;
-import ClassesPeca.Eletrica;
-import ClassesPeca.Mecanica;
 import ClassesPeca.PecaAuto;
 import Lista.ListaPeca;
 import java.util.ArrayList;
@@ -21,10 +19,8 @@ import javax.swing.JOptionPane;
  */
 public class FrameView extends javax.swing.JFrame {
 
-    private  ListaPeca lista = new ListaPeca();
-    private  List<PecaAuto> listaMecanica = new ArrayList();
-    private  List<PecaAuto> listaAcessorio = new ArrayList();
-    private  List<PecaAuto> listaEletrica = new ArrayList();
+    public static ListaPeca lista = new ListaPeca();
+    private List<PecaAuto> listaAcessorio = new ArrayList();
 
     /**
      * Creates new form FrameView
@@ -38,11 +34,7 @@ public class FrameView extends javax.swing.JFrame {
             for (PecaAuto p : aux) {
                 if (p instanceof Acessorio) {
                     listaAcessorio.add(p);
-                } else if (p instanceof Mecanica) {
-                    listaMecanica.add(p);
-                } else if (p instanceof Eletrica) {
-                    listaEletrica.add(p);
-                }
+                } 
             }
         }
 
@@ -71,8 +63,6 @@ public class FrameView extends javax.swing.JFrame {
         jButtonExcluir = new javax.swing.JButton();
         jButtonDetalhes = new javax.swing.JButton();
         jButtonBuscarAcessorio = new javax.swing.JButton();
-        jButtonBuscarEletrica = new javax.swing.JButton();
-        jButtonBuscarMecanica = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,7 +93,7 @@ public class FrameView extends javax.swing.JFrame {
             }
         });
 
-        jListPadrao.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jListPadrao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jScrollPane1.setViewportView(jListPadrao);
 
         jButtonIncluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -140,12 +130,11 @@ public class FrameView extends javax.swing.JFrame {
 
         jButtonBuscarAcessorio.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonBuscarAcessorio.setText("Buscar Acessorio");
-
-        jButtonBuscarEletrica.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButtonBuscarEletrica.setText("Buscar Peça Elétrica");
-
-        jButtonBuscarMecanica.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButtonBuscarMecanica.setText("Buscar Peça Mecanica");
+        jButtonBuscarAcessorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarAcessorioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -166,9 +155,7 @@ public class FrameView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonBuscarAcessorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonBuscarEletrica, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonBuscarMecanica, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))
+                    .addComponent(jButtonBuscarAcessorio, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -182,12 +169,6 @@ public class FrameView extends javax.swing.JFrame {
                     .addComponent(jButtonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButtonBuscarMecanica, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
-                        .addComponent(jButtonBuscarAcessorio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
-                        .addComponent(jButtonBuscarEletrica, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jButtonIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
@@ -196,7 +177,8 @@ public class FrameView extends javax.swing.JFrame {
                         .addComponent(jButtonDetalhes, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonBuscarAcessorio, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -258,7 +240,6 @@ public class FrameView extends javax.swing.JFrame {
         String buscaTipo = jComboBoxBuscaTipo.getSelectedItem().toString();
         PecaAuto aux;
         List<PecaAuto> listaAux;
-        String aa = jTextFieldBusca.getText();
         if (jTextFieldBusca.getText().trim().equals("")) {
             listaAux = lista.getLista();
             listar(listaAux);
@@ -268,13 +249,22 @@ public class FrameView extends javax.swing.JFrame {
 
                 case "Buscar por Nome":
                     aux = lista.consultaPeca(jTextFieldBusca.getText());
-                    listaAux.add(aux);
-                    listar(listaAux);
+                    if (aux != null) {
+                        listaAux.add(aux);
+                        listar(listaAux);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Não encontrado");
+                    }
+
                     break;
                 case "Buscar por Fabricante":
                     aux = lista.consultarFabricante(jTextFieldBusca.getText());
-                    listaAux.add(aux);
-                    listar(listaAux);
+                    if (aux != null) {
+                        listaAux.add(aux);
+                        listar(listaAux);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Não encontrado");
+                    }
                     break;
             }
         }
@@ -288,7 +278,6 @@ public class FrameView extends javax.swing.JFrame {
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
 
         String editar = JOptionPane.showInputDialog(null, "Informe o Nome da peca a ser Editada");
-
         if (editar != null) {
             String[] textMessages = {"Elétrica", "Acessorios", "Mecanica", "Cancelar"};
             int x = JOptionPane.showOptionDialog(null, "Escolha o tipo de Peça", "Editar",
@@ -314,7 +303,7 @@ public class FrameView extends javax.swing.JFrame {
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Não encontrado");
+            JOptionPane.showMessageDialog(null, "Operação cancelada!");
         }
 
     }//GEN-LAST:event_jButtonEditarActionPerformed
@@ -346,7 +335,7 @@ public class FrameView extends javax.swing.JFrame {
                     break;
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Não encontrado");
+            JOptionPane.showMessageDialog(null, "Operação cancelada!");
         }
 
     }//GEN-LAST:event_jButtonDetalhesActionPerformed
@@ -354,14 +343,46 @@ public class FrameView extends javax.swing.JFrame {
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         String excluir = JOptionPane.showInputDialog(null, "Informe o Nome da peca a ser Excluida");
         if (excluir != null) {
-
             lista.excluir(excluir);
-
         } else {
-            JOptionPane.showMessageDialog(null, "Não encontrado");
+            JOptionPane.showMessageDialog(null, "Operação cancelada!");
         }
 
     }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jButtonBuscarAcessorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarAcessorioActionPerformed
+        String buscaTipo = jComboBoxBuscaTipo.getSelectedItem().toString();
+        PecaAuto aux;
+        List<PecaAuto> listaAux;
+        if (jTextFieldBusca.getText().trim().equals("")) {
+            listaAux = lista.getLista();
+            listar(listaAux);
+        } else {
+            listaAux = new ArrayList();
+            switch (buscaTipo) {
+
+                case "Buscar por Nome":
+                    aux = lista.consultaPeca(jTextFieldBusca.getText());
+                    if (aux != null) {
+                        listaAux.add(aux);
+                        listar(listaAux);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Não encontrado");
+                    }
+
+                    break;
+                case "Buscar por Fabricante":
+                    aux = lista.consultarFabricante(jTextFieldBusca.getText());
+                    if (aux != null) {
+                        listaAux.add(aux);
+                        listar(listaAux);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Não encontrado");
+                    }
+                    break;
+            }
+        }
+    }//GEN-LAST:event_jButtonBuscarAcessorioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -404,8 +425,6 @@ public class FrameView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonBuscarAcessorio;
-    private javax.swing.JButton jButtonBuscarEletrica;
-    private javax.swing.JButton jButtonBuscarMecanica;
     private javax.swing.JButton jButtonDetalhes;
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonExcluir;
