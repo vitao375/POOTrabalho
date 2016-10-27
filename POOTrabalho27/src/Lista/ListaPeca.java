@@ -5,6 +5,7 @@
  */
 package Lista;
 
+import ClassesPeca.Acessorio;
 import ClassesPeca.PecaAuto;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +27,12 @@ public class ListaPeca implements IListaPeca {
     @Override
     public void incluir(PecaAuto p) {
 
-        lista.add(p);
-        throw new IllegalArgumentException("Não foi possivél salvar.");
+        if (lista.add(p)) {
+
+        } else {
+
+            throw new IllegalArgumentException("Não foi possivél salvar.");
+        }
     }
 
     /**
@@ -40,8 +45,11 @@ public class ListaPeca implements IListaPeca {
     public void excluir(String nome) {
         PecaAuto peca = this.consultaPeca(nome);
 
-        this.lista.remove(peca);
-        throw new IllegalArgumentException("Não excluido.");
+        if (this.lista.remove(peca)) {
+        } else {
+            throw new IllegalArgumentException("Não foi possivél Excluir.");
+        }
+
     }
 
     /**
@@ -54,16 +62,15 @@ public class ListaPeca implements IListaPeca {
     @Override
     public void editar(String nome, PecaAuto p) {
 
-       
-            for (PecaAuto peca : lista) {
-                if (peca.getNome().equalsIgnoreCase(nome)) {
-                    int indice = this.lista.indexOf(peca);
-                    this.lista.set(indice, p);
-                    
-                }
-
+        for (PecaAuto peca : lista) {
+            if (peca.getNome().equalsIgnoreCase(nome)) {
+                int indice = this.lista.indexOf(peca);
+                this.lista.set(indice, p);
+            } else {
+                throw new IllegalArgumentException("Não foi possivél editar");
             }
-       
+        }
+
     }
 
     /**
@@ -76,15 +83,14 @@ public class ListaPeca implements IListaPeca {
      */
     @Override
     public PecaAuto consultaPeca(String nome) {
-    
-            for (PecaAuto pecaAuto : lista) {
-                if (pecaAuto.getNome().equalsIgnoreCase(nome)) {
-                    return pecaAuto;
-                }
 
+        for (PecaAuto pecaAuto : lista) {
+            if (pecaAuto.getNome().equalsIgnoreCase(nome)) {
+                return pecaAuto;
             }
-            return null;
-        
+
+        }
+        return null;
 
     }
 
@@ -98,17 +104,52 @@ public class ListaPeca implements IListaPeca {
      */
     @Override
     public PecaAuto consultarFabricante(String fabricantePeca) {
-       
-            for (PecaAuto pecaAuto : lista) {
-                if (pecaAuto.getFabricantePeca().equalsIgnoreCase(fabricantePeca)) {
-                    return pecaAuto;
-                }
 
+        for (PecaAuto pecaAuto : lista) {
+            if (pecaAuto.getFabricantePeca().equalsIgnoreCase(fabricantePeca)) {
+                return pecaAuto;
             }
-        
+
+        }
+
         return null;
 
     }
+    
+    
+    @Override
+    public PecaAuto consultarNomeA(String a) {
+
+        for (PecaAuto pecaAuto : lista) {
+            if (pecaAuto instanceof Acessorio) {
+                if (pecaAuto.getNome().equalsIgnoreCase(a)) {
+                    return pecaAuto;
+                }
+            }
+        }
+
+        return null;
+
+    }
+    
+
+    @Override
+    public PecaAuto consultarFabricanteA(String a) {
+
+        for (PecaAuto pecaAuto : lista) {
+            if (pecaAuto instanceof Acessorio) {
+                if (pecaAuto.getFabricantePeca().equalsIgnoreCase(a)) {
+                    return pecaAuto;
+                }
+            }
+        }
+
+        return null;
+
+    }
+    
+    
+    
 
     /**
      * Método no qual retorna a lista PecaAuto

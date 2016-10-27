@@ -49,5 +49,12 @@ public interface IListaPeca {
      * contidos nela.
      */
     public PecaAuto consultarFabricante(String nome);
+    
+    
+    
+    public PecaAuto consultarNomeA(String nome);
+    
+    
+    public PecaAuto consultarFabricanteA(String nome);
 
 }
