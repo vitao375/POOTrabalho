@@ -34,8 +34,8 @@ public class FrameView extends javax.swing.JFrame {
         this.lista = lista;
         try {
             this.lista.lerArquivo();
-        }catch(Exception e){
-            
+        } catch (Exception e) {
+
         }
         List<PecaAuto> aux;
         this.setLocationRelativeTo(null);
@@ -255,8 +255,8 @@ public class FrameView extends javax.swing.JFrame {
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         String buscaTipo = jComboBoxBuscaTipo.getSelectedItem().toString();
         PecaAuto aux;
-        List<PecaAuto> listaAux= new ArrayList();
-        if (jTextFieldBusca.getText().trim().equals("")) {
+        List<PecaAuto> listaAux = new ArrayList();
+        if (jTextFieldBusca.getText().trim().equals("") || jTextFieldBusca.getText()==null) {
             listaAux = lista.getLista();
             listar(listaAux);
         } else {
@@ -363,7 +363,11 @@ public class FrameView extends javax.swing.JFrame {
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         String excluir = JOptionPane.showInputDialog(null, "Informe o Nome da peca a ser Excluida");
         if (excluir != null) {
-            lista.excluir(excluir);
+            try {
+                lista.excluir(excluir);
+            } catch (IllegalArgumentException e) {
+                JOptionPane.showMessageDialog(null, "Operação cancelada! " + e.getMessage());
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Operação cancelada!");
         }
@@ -461,15 +465,13 @@ public class FrameView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextFieldBusca;
     // End of variables declaration//GEN-END:variables
+    
     public void listar(List<PecaAuto> peca) {
         DefaultListModel listaPadrao = new DefaultListModel();
-        if (peca == null) {
-            jListPadrao.setModel(listaPadrao);
-        } else {
-            for (PecaAuto p : peca) {
-                listaPadrao.addElement(p.toString());
-            }
-            jListPadrao.setModel(listaPadrao);
+        for (PecaAuto p : peca) {
+            listaPadrao.addElement(p.toString());
         }
+        jListPadrao.setModel(listaPadrao);
+
     }
 }

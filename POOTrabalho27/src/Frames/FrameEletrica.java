@@ -276,7 +276,6 @@ public class FrameEletrica extends javax.swing.JFrame {
                         int x = JOptionPane.showOptionDialog(null, "Deseja Incluir outra Peca", "Eletrica",
                                 JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE,
                                 null, textMessages, null);
-                        System.out.println(x);
                         switch (x) {
                             case 0:
                                 limparCampos();
@@ -289,7 +288,7 @@ public class FrameEletrica extends javax.swing.JFrame {
                                 new FrameView(lista).setVisible(true);
                                 this.dispose();
                                 break;
-                        }
+                        }                      
                     } catch (IllegalArgumentException e) {
                         JOptionPane.showMessageDialog(null, e.getMessage());
                         new FrameView(lista).setVisible(true);

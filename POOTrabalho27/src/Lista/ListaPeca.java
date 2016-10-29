@@ -174,6 +174,7 @@ public class ListaPeca implements IListaPeca {
         int cont = 0;
         BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir")
                 + System.getProperty("file.separator") + "Peca" + ".csv"));
+        lista.clear();
         while (br.ready()) {
             linha = br.readLine();
             ler(linha);
@@ -193,7 +194,7 @@ public class ListaPeca implements IListaPeca {
     private void ler(String linha) {
         String[] dados = null;
         dados = linha.split(";");
-
+        
         switch (dados[0]) {
             case "Acessorio":
                 String fabricante = dados[1];
