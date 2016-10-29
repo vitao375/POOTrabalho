@@ -35,7 +35,7 @@ public class FrameEletrica extends javax.swing.JFrame {
         this.setTitle("Peças Eletricas");
         this.acao = acao;
         this.nome = nome;
-        if(acao.equals("Consultar")||acao.equals("Editar")){
+        if (acao.equals("Consultar") || acao.equals("Editar")) {
             consultar();
         }
     }
@@ -96,18 +96,38 @@ public class FrameEletrica extends javax.swing.JFrame {
         jLabel8.setText("Modelo:");
 
         jTextFieldValor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldValorKeyTyped(evt);
+            }
+        });
 
         jTextFieldNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jTextFieldAmperagem.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldAmperagem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldAmperagemKeyTyped(evt);
+            }
+        });
 
         jTextFieldQuantidade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldQuantidadeKeyTyped(evt);
+            }
+        });
 
         jTextFieldModelo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jTextFieldFabricante.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jTextFieldVoltagem.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldVoltagem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldVoltagemKeyTyped(evt);
+            }
+        });
 
         jButtonVoltar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonVoltar.setText("Voltar");
@@ -232,31 +252,98 @@ public class FrameEletrica extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        switch (acao) {
-            case "Incluir":
-                Eletrica incluir = new Eletrica(jTextFieldFabricante.getText(),
-                        jTextFieldModelo.getText(), Double.valueOf(jTextFieldValor.getText()),
-                        Integer.parseInt(jTextFieldQuantidade.getText()), jTextFieldNome.getText(),
-                        Double.valueOf(jTextFieldAmperagem.getText()),
-                        Double.valueOf(jTextFieldVoltagem.getText()),
-                        Sistemas.verifica(jComboBoxTipoSistema.getSelectedIndex()));
-                lista.incluir(incluir);
-                limparCampos();
-                //adicionar o try catch
-                break;
-            case "Editar":
-                Eletrica edita = new Eletrica(jTextFieldFabricante.getText(),
-                        jTextFieldModelo.getText(), Double.valueOf(jTextFieldValor.getText()),
-                        Integer.parseInt(jTextFieldQuantidade.getText()), jTextFieldNome.getText(),
-                        Double.valueOf(jTextFieldAmperagem.getText()),
-                        Double.valueOf(jTextFieldVoltagem.getText()),
-                        Sistemas.verifica(jComboBoxTipoSistema.getSelectedIndex()));
-                lista.editar(nome, edita);
-                limparCampos();
-                //adicionar o try catch
-                break;
+        if (verificaPreencher()) {
+            JOptionPane.showMessageDialog(null, "Informe todos os campos");
+        } else {
+            switch (acao) {
+                case "Incluir":
+                    try {
+                        Eletrica incluir = new Eletrica(jTextFieldFabricante.getText(),
+                                jTextFieldModelo.getText(), Double.valueOf(jTextFieldValor.getText()),
+                                Integer.parseInt(jTextFieldQuantidade.getText()), jTextFieldNome.getText(),
+                                Double.valueOf(jTextFieldAmperagem.getText()),
+                                Double.valueOf(jTextFieldVoltagem.getText()),
+                                Sistemas.verifica(jComboBoxTipoSistema.getSelectedIndex()));
+                        lista.incluir(incluir);
+
+                        String[] textMessages = {"Sim", "Não"};
+                        int x = JOptionPane.showOptionDialog(null, "Deseja Incluir outra Peca", "Eletrica",
+                                JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE,
+                                null, textMessages, null);
+                        System.out.println(x);
+                        switch (x) {
+                            case 0:
+                                limparCampos();
+                                break;
+                            case 1:
+                                new FrameView().setVisible(true);
+                                this.dispose();
+                                break;
+                            default:
+                                new FrameView().setVisible(true);
+                                this.dispose();
+                                break;
+                        }
+                    } catch (IllegalArgumentException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                        new FrameView().setVisible(true);
+                        this.dispose();
+                    }
+
+                    break;
+                case "Editar":
+                    try {
+                        Eletrica edita = new Eletrica(jTextFieldFabricante.getText(),
+                                jTextFieldModelo.getText(), Double.valueOf(jTextFieldValor.getText()),
+                                Integer.parseInt(jTextFieldQuantidade.getText()), jTextFieldNome.getText(),
+                                Double.valueOf(jTextFieldAmperagem.getText()),
+                                Double.valueOf(jTextFieldVoltagem.getText()),
+                                Sistemas.verifica(jComboBoxTipoSistema.getSelectedIndex()));
+                        lista.editar(nome, edita);
+                        new FrameView().setVisible(true);
+                        this.dispose();
+                    } catch (IllegalArgumentException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                        new FrameView().setVisible(true);
+                        this.dispose();
+                    }
+
+                    break;
+            }
         }
+
     }//GEN-LAST:event_jButtonSalvarActionPerformed
+
+    private void jTextFieldValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldValorKeyTyped
+        soDouble(evt, jTextFieldValor.getText());
+    }//GEN-LAST:event_jTextFieldValorKeyTyped
+
+    private void jTextFieldQuantidadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldQuantidadeKeyTyped
+        soNumeros(evt);
+    }//GEN-LAST:event_jTextFieldQuantidadeKeyTyped
+
+    private void jTextFieldAmperagemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldAmperagemKeyTyped
+        soDouble(evt, jTextFieldAmperagem.getText());
+    }//GEN-LAST:event_jTextFieldAmperagemKeyTyped
+
+    private void jTextFieldVoltagemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldVoltagemKeyTyped
+        soDouble(evt, jTextFieldVoltagem.getText());
+    }//GEN-LAST:event_jTextFieldVoltagemKeyTyped
+
+    public boolean verificaPreencher() {
+        if (jTextFieldFabricante.getText() == null
+                || jTextFieldModelo.getText() == null
+                || jTextFieldNome.getText() == null
+                || jTextFieldQuantidade.getText() == null
+                || jTextFieldValor.getText() == null
+                || jTextFieldAmperagem.getText() == null
+                || jTextFieldVoltagem.getText() == null) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 
     public void preencherCampos(PecaAuto p) {
         Eletrica e = (Eletrica) p;
@@ -301,16 +388,44 @@ public class FrameEletrica extends javax.swing.JFrame {
 
     public final void consultar() {
         Eletrica consultar = (Eletrica) lista.consultaPeca(nome);
-        if(acao.equals("Consultar")){
+        if (acao.equals("Consultar")) {
             desativarCampos();
             jButtonSalvar.setEnabled(false);
-        }       
-        if(consultar==null){
-            JOptionPane.showMessageDialog(null, "Não encontrado");
-        } else{
-            preencherCampos(consultar);          
         }
-        
+        if (consultar == null) {
+            JOptionPane.showMessageDialog(null, "Não encontrado");
+            new FrameView().setVisible(true);
+            this.dispose();
+        } else {
+            preencherCampos(consultar);
+        }
+
+    }
+
+    public void soNumeros(java.awt.event.KeyEvent evt) {
+        char aux = evt.getKeyChar();
+        if (!Character.isDigit(aux)) {
+            evt.consume();
+        }
+    }
+
+    public void soDouble(java.awt.event.KeyEvent evt, String text) {
+        char aux = evt.getKeyChar();
+        int tem = 0;
+        for (int i = 0; i < text.length(); i++) {
+            if (text.charAt(i) == '.') {
+                tem++;
+                break;
+            }
+        }
+
+        if (aux == '.') {
+            if (tem != 0) {
+                evt.consume();
+            }
+        } else if (!Character.isDigit(aux)) {
+            evt.consume();
+        }
     }
 
     /**

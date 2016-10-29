@@ -22,7 +22,6 @@ public class ListaPeca implements IListaPeca {
      * Método no qual inclui um novo cadastro de peça na lista PecaAuto.
      *
      * @param p objeto do tipo PecaAuto
-     * @throws java.lang.Exception
      */
     @Override
     public void incluir(PecaAuto p) {
@@ -30,7 +29,6 @@ public class ListaPeca implements IListaPeca {
         if (lista.add(p)) {
 
         } else {
-
             throw new IllegalArgumentException("Não foi possivél salvar.");
         }
     }
@@ -45,7 +43,7 @@ public class ListaPeca implements IListaPeca {
     public void excluir(String nome) {
         PecaAuto peca = this.consultaPeca(nome);
 
-        if (this.lista.remove(peca)) {
+        if (this.lista.remove(peca)||peca!=null) {
         } else {
             throw new IllegalArgumentException("Não foi possivél Excluir.");
         }

@@ -9,7 +9,6 @@ import ClassesPeca.Acessorio;
 import ClassesPeca.PecaAuto;
 import Enum.Material;
 import Lista.ListaPeca;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,11 +16,16 @@ import javax.swing.JOptionPane;
  * @author vitao375
  */
 public class FrameAcessorios extends javax.swing.JFrame {
-    private String acao;
-    private String nome;
+
+    private final String acao;
+    private final String nome;
     public static ListaPeca lista = new ListaPeca();
+
     /**
      * Creates new form FrameAcessorio
+     *
+     * @param acao Variavel que indica o que a Frame deve fazer
+     * @param nome Varivel com o nome do Acessorio a ser editado
      */
     public FrameAcessorios(String acao, String nome) {
         initComponents();
@@ -29,10 +33,10 @@ public class FrameAcessorios extends javax.swing.JFrame {
         this.setTitle("Acessorios");
         this.acao = acao;
         this.nome = nome;
-        if(acao.equals("Consultar")||acao.equals("Editar")){
+        if (acao.equals("Consultar") || acao.equals("Editar")) {
             consultar();
         }
-       
+
     }
 
     /**
@@ -91,12 +95,27 @@ public class FrameAcessorios extends javax.swing.JFrame {
         jTextFieldCor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jTextFieldValor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextFieldValor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldValorActionPerformed(evt);
+            }
+        });
+        jTextFieldValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldValorKeyTyped(evt);
+            }
+        });
 
         jTextFieldNome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jTextFieldModelo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jTextFieldQuantidade.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextFieldQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldQuantidadeKeyTyped(evt);
+            }
+        });
 
         jTextFieldFabricante.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -214,26 +233,74 @@ public class FrameAcessorios extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        switch (acao) {
-            case "Incluir":
-                Acessorio incluir = new Acessorio(jTextFieldFabricante.getText(),
-                jTextFieldModelo.getText(),Double.valueOf(jTextFieldValor.getText()),
-                Integer.valueOf(jTextFieldQuantidade.getText()),jTextFieldNome.getText(),
-                        jTextFieldCor.getText(),Material.verifica(jComboBox1.getSelectedIndex()));
-                lista.incluir(incluir);
-                limparCampos();
-               break;
-            case "Editar":
-                Acessorio editar = new Acessorio(jTextFieldFabricante.getText(),
-                jTextFieldModelo.getText(),Double.valueOf(jTextFieldValor.getText()),
-                Integer.parseInt(jTextFieldQuantidade.getText()),jTextFieldNome.getText(),
-                        jTextFieldCor.getText(),Material.verifica(jComboBox1.getSelectedIndex()));
-                lista.editar(nome, editar);
-                limparCampos();
-                break;
-            
+        if (verificaPreencher()) {
+            JOptionPane.showMessageDialog(null, "Informe todos os campos");
+        } else {
+            switch (acao) {
+                case "Incluir":
+                    try {
+                        Acessorio incluir = new Acessorio(jTextFieldFabricante.getText(),
+                                jTextFieldModelo.getText(), Double.valueOf(jTextFieldValor.getText()),
+                                Integer.valueOf(jTextFieldQuantidade.getText()), jTextFieldNome.getText(),
+                                jTextFieldCor.getText(), Material.verifica(jComboBox1.getSelectedIndex()));
+                        lista.incluir(incluir);
+                        String[] textMessages = {"Sim", "Não"};
+                        int x = JOptionPane.showOptionDialog(null, "Deseja Incluir outra Peca", "Acessorio",
+                                JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE,
+                                null, textMessages, null);
+                        System.out.println(x);
+                        switch (x) {
+                            case 0:
+                                limparCampos();
+                                break;
+                            case 1:
+                                new FrameView().setVisible(true);
+                                this.dispose();
+                                break;
+                            default:
+                                new FrameView().setVisible(true);
+                                this.dispose();
+                                break;
+                        }
+                        break;
+                    } catch (IllegalArgumentException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                        new FrameView().setVisible(true);
+                        this.dispose();
+                    }
+
+                case "Editar":
+                    try {
+                        Acessorio editar = new Acessorio(jTextFieldFabricante.getText(),
+                                jTextFieldModelo.getText(), Double.valueOf(jTextFieldValor.getText()),
+                                Integer.parseInt(jTextFieldQuantidade.getText()), jTextFieldNome.getText(),
+                                jTextFieldCor.getText(), Material.verifica(jComboBox1.getSelectedIndex()));
+                        lista.editar(nome, editar);
+                        new FrameView().setVisible(true);
+                        this.dispose();
+                        break;
+                    } catch (IllegalArgumentException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                        new FrameView().setVisible(true);
+                        this.dispose();
+                    }
+
+            }
         }
+
     }//GEN-LAST:event_jButtonSalvarActionPerformed
+
+    private void jTextFieldValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldValorActionPerformed
+
+    }//GEN-LAST:event_jTextFieldValorActionPerformed
+
+    private void jTextFieldValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldValorKeyTyped
+        soDouble(evt, jTextFieldValor.getText());
+    }//GEN-LAST:event_jTextFieldValorKeyTyped
+
+    private void jTextFieldQuantidadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldQuantidadeKeyTyped
+        soNumeros(evt);
+    }//GEN-LAST:event_jTextFieldQuantidadeKeyTyped
 
     /**
      * @param args the command line arguments
@@ -266,34 +333,39 @@ public class FrameAcessorios extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrameAcessorios(null,null).setVisible(true);
+                new FrameAcessorios(null, null).setVisible(true);
             }
         });
     }
-    
-    public void preencherCampos(PecaAuto p){
+
+    public void preencherCampos(PecaAuto p) {
         Acessorio a = (Acessorio) p;
         jTextFieldFabricante.setText(a.getFabricantePeca());
         jTextFieldModelo.setText(a.getModeloCarro());
         jTextFieldNome.setText(a.getNome());
         jTextFieldQuantidade.setText(String.valueOf(a.getQuantidade()));
         jTextFieldValor.setText(String.valueOf(a.getValor()));
+        //jComboBox1.setSelectedIndex(a.getMaterial());
     }
-    public void limparCampos(){
+
+    public void limparCampos() {
         jTextFieldFabricante.setText("");
         jTextFieldModelo.setText("");
         jTextFieldNome.setText("");
         jTextFieldQuantidade.setText("");
         jTextFieldValor.setText("");
+        jComboBox1.setSelectedIndex(0);
     }
-    public void desativarCampos(){
+
+    public void desativarCampos() {
         jTextFieldFabricante.setEnabled(false);
         jTextFieldModelo.setEnabled(false);
         jTextFieldNome.setEnabled(false);
         jTextFieldQuantidade.setEnabled(false);
         jTextFieldValor.setEnabled(false);
     }
-    public void ativarCampos(){
+
+    public void ativarCampos() {
         jTextFieldFabricante.setEnabled(true);
         jTextFieldModelo.setEnabled(true);
         jTextFieldNome.setEnabled(true);
@@ -301,6 +373,17 @@ public class FrameAcessorios extends javax.swing.JFrame {
         jTextFieldValor.setEnabled(true);
     }
 
+    public boolean verificaPreencher() {
+        if (jTextFieldFabricante.getText() == null
+                || jTextFieldModelo.getText() == null
+                || jTextFieldNome.getText() == null
+                || jTextFieldQuantidade.getText() == null
+                || jTextFieldValor.getText() == null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JButton jButtonVoltar;
@@ -323,14 +406,42 @@ public class FrameAcessorios extends javax.swing.JFrame {
 
     private void consultar() {
         Acessorio consultar = (Acessorio) lista.consultaPeca(nome);
-        if(acao.equals("Consultar")){
+        if (acao.equals("Consultar")) {
             desativarCampos();
             jButtonSalvar.setEnabled(false);
-        }       
-        if(consultar==null){
+        }
+        if (consultar == null) {
             JOptionPane.showMessageDialog(null, "Não encontrado");
-        } else{
-            preencherCampos(consultar);          
+            new FrameView().setVisible(true);
+            this.dispose();
+        } else {
+            preencherCampos(consultar);
+        }
+    }
+
+    public void soNumeros(java.awt.event.KeyEvent evt) {
+        char aux = evt.getKeyChar();
+        if (!Character.isDigit(aux)) {
+            evt.consume();
+        }
+    }
+
+    public void soDouble(java.awt.event.KeyEvent evt, String text) {
+        char aux = evt.getKeyChar();
+        int tem = 0;
+        for (int i = 0; i < text.length(); i++) {
+            if (text.charAt(i) == '.') {
+                tem++;
+                break;
+            }
+        }
+
+        if (aux == '.') {
+            if (tem != 0) {
+                evt.consume();
+            }
+        } else if (!Character.isDigit(aux)) {
+            evt.consume();
         }
     }
 }

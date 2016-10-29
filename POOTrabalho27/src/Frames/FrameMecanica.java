@@ -9,7 +9,6 @@ import ClassesPeca.Mecanica;
 import ClassesPeca.PecaAuto;
 import Enum.Tipo;
 import Lista.ListaPeca;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,22 +16,24 @@ import javax.swing.JOptionPane;
  * @author vitao375
  */
 public class FrameMecanica extends javax.swing.JFrame {
+
     public static ListaPeca lista = new ListaPeca();
     /**
      * Creates new form FrameMecanica
      */
-    private String acao;
-    private String nome;
+    private final String acao;
+    private final String nome;
+
     public FrameMecanica(String acao, String nome) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Peças Mecanicas");
-        this.acao=acao;
+        this.acao = acao;
         this.nome = nome;
-        if(acao.equals("Consultar")||acao.equals("Editar")){
+        if (acao.equals("Consultar") || acao.equals("Editar")) {
             consultar();
         }
-        
+
     }
 
     /**
@@ -103,12 +104,22 @@ public class FrameMecanica extends javax.swing.JFrame {
         });
 
         jTextFieldValor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldValorKeyTyped(evt);
+            }
+        });
 
         jTextFieldNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jTextFieldModelo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jTextFieldQuantidade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldQuantidadeKeyTyped(evt);
+            }
+        });
 
         jComboBoxTipo2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jComboBoxTipo2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Motor", "Direcao", "Suspensao", "Transmissao", "Freio", "Outro" }));
@@ -205,27 +216,71 @@ public class FrameMecanica extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        switch (acao) {
-            case "Incluir":
-                Mecanica incluir = new Mecanica(jTextFieldFabricante.getText(),
-                        jTextFieldModelo.getText(), Double.valueOf(jTextFieldValor.getText()),
-                        Integer.valueOf(jTextFieldQuantidade.getText()), jTextFieldNome.getText(),
-                        Tipo.verifica(jComboBoxTipo2.getSelectedIndex()));
+        if (verificaPreencher()) {
+            JOptionPane.showMessageDialog(null, "Informe todos os campos");
+        } else {
+            switch (acao) {
+                case "Incluir":
+                    try {
+                        Mecanica incluir = new Mecanica(jTextFieldFabricante.getText(),
+                                jTextFieldModelo.getText(), Double.valueOf(jTextFieldValor.getText()),
+                                Integer.valueOf(jTextFieldQuantidade.getText()), jTextFieldNome.getText(),
+                                Tipo.verifica(jComboBoxTipo2.getSelectedIndex()));
 
-                lista.incluir(incluir);
-                limparCampos();
-                break;
-            case "Editar":
-                Mecanica edita = new Mecanica(jTextFieldFabricante.getText(),
-                        jTextFieldModelo.getText(), Double.valueOf(jTextFieldValor.getText()),
-                        Integer.valueOf(jTextFieldQuantidade.getText()), jTextFieldNome.getText(),
-                        Tipo.verifica(jComboBoxTipo2.getSelectedIndex()));
+                        lista.incluir(incluir);
+                        String[] textMessages = {"Sim", "Não"};
+                        int x = JOptionPane.showOptionDialog(null, "Deseja Incluir outra Peca", "Mecanica",
+                                JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE,
+                                null, textMessages, null);
+                        System.out.println(x);
+                        switch (x) {
+                            case 0:
+                                limparCampos();
+                                break;
+                            case 1:
+                                new FrameView().setVisible(true);
+                                this.dispose();
+                                break;
+                            default:
+                                new FrameView().setVisible(true);
+                                this.dispose();
+                                break;
+                        }
+                    } catch (IllegalArgumentException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                        new FrameView().setVisible(true);
+                        this.dispose();
+                    }
+                    break;
+                case "Editar":
+                    try {
+                        Mecanica edita = new Mecanica(jTextFieldFabricante.getText(),
+                                jTextFieldModelo.getText(), Double.valueOf(jTextFieldValor.getText()),
+                                Integer.valueOf(jTextFieldQuantidade.getText()), jTextFieldNome.getText(),
+                                Tipo.verifica(jComboBoxTipo2.getSelectedIndex()));
 
-                lista.editar(nome, edita);
-                limparCampos();
-                break;            
+                        lista.editar(nome, edita);
+                        new FrameView().setVisible(true);
+                        this.dispose();
+                        break;
+                    } catch (IllegalArgumentException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                        new FrameView().setVisible(true);
+                        this.dispose();
+                    }
+
+            }
         }
+
     }//GEN-LAST:event_jButtonSalvarActionPerformed
+
+    private void jTextFieldValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldValorKeyTyped
+        soDouble(evt, jTextFieldValor.getText());
+    }//GEN-LAST:event_jTextFieldValorKeyTyped
+
+    private void jTextFieldQuantidadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldQuantidadeKeyTyped
+        soNumeros(evt);
+    }//GEN-LAST:event_jTextFieldQuantidadeKeyTyped
 
     /**
      * @param args the command line arguments
@@ -257,11 +312,11 @@ public class FrameMecanica extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrameMecanica(null,null).setVisible(true);
+                new FrameMecanica(null, null).setVisible(true);
             }
         });
     }
-    
+
     public void preencherCampos(PecaAuto p) {
         Mecanica m = (Mecanica) p;
         jTextFieldFabricante.setText(m.getFabricantePeca());
@@ -295,6 +350,19 @@ public class FrameMecanica extends javax.swing.JFrame {
         jTextFieldValor.setEnabled(true);
     }
 
+    public boolean verificaPreencher() {
+        if (jTextFieldFabricante.getText() == null
+                || jTextFieldModelo.getText() == null
+                || jTextFieldNome.getText() == null
+                || jTextFieldQuantidade.getText() == null
+                || jTextFieldValor.getText() == null) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JButton jButtonVoltar;
@@ -315,14 +383,42 @@ public class FrameMecanica extends javax.swing.JFrame {
 
     private void consultar() {
         Mecanica consultar = (Mecanica) lista.consultaPeca(nome);
-        if(acao.equals("Consultar")){
+        if (acao.equals("Consultar")) {
             desativarCampos();
             jButtonSalvar.setEnabled(false);
-        }       
-        if(consultar==null){
+        }
+        if (consultar == null) {
             JOptionPane.showMessageDialog(null, "Não encontrado");
-        } else{
-            preencherCampos(consultar);          
+            new FrameView().setVisible(true);
+            this.dispose();
+        } else {
+            preencherCampos(consultar);
+        }
+    }
+
+    public void soNumeros(java.awt.event.KeyEvent evt) {
+        char aux = evt.getKeyChar();
+        if (!Character.isDigit(aux)) {
+            evt.consume();
+        }
+    }
+
+    public void soDouble(java.awt.event.KeyEvent evt, String text) {
+        char aux = evt.getKeyChar();
+        int tem = 0;
+        for (int i = 0; i < text.length(); i++) {
+            if (text.charAt(i) == '.') {
+                tem++;
+                break;
+            }
+        }
+
+        if (aux == '.') {
+            if (tem != 0) {
+                evt.consume();
+            }
+        } else if (!Character.isDigit(aux)) {
+            evt.consume();
         }
     }
 }

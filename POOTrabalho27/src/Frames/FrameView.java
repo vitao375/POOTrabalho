@@ -27,20 +27,11 @@ public class FrameView extends javax.swing.JFrame {
      */
     public FrameView() {
         //lista.lerArquivo();
-        List<PecaAuto> aux;
-        aux = lista.getLista();
-
-        if (aux != null) {
-            for (PecaAuto p : aux) {
-                if (p instanceof Acessorio) {
-                    listaAcessorio.add(p);
-                } 
-            }
-        }
-
         initComponents();
+        List<PecaAuto> aux;     
         this.setLocationRelativeTo(null);
         this.setTitle("Peças Automotivas");
+        //Arrumar os Preencher campos para alterar as comboBox também
     }
 
     /**
@@ -375,7 +366,7 @@ public class FrameView extends javax.swing.JFrame {
             switch (buscaTipo) {
 
                 case "Buscar por Nome":
-                    aux = lista.consultaPeca(jTextFieldBusca.getText());
+                    aux = lista.consultarNomeA(jTextFieldBusca.getText());
                     if (aux != null) {
                         listaAux.add(aux);
                         listar(listaAux);
@@ -385,7 +376,7 @@ public class FrameView extends javax.swing.JFrame {
 
                     break;
                 case "Buscar por Fabricante":
-                    aux = lista.consultarFabricante(jTextFieldBusca.getText());
+                    aux = lista.consultarFabricanteA(jTextFieldBusca.getText());
                     if (aux != null) {
                         listaAux.add(aux);
                         listar(listaAux);
