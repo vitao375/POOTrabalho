@@ -9,6 +9,7 @@ import ClassesPeca.Acessorio;
 import ClassesPeca.PecaAuto;
 import Enum.Material;
 import Lista.ListaPeca;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,8 +28,9 @@ public class FrameAcessorios extends javax.swing.JFrame {
      * @param acao Variavel que indica o que a Frame deve fazer
      * @param nome Varivel com o nome do Acessorio a ser editado
      */
-    public FrameAcessorios(String acao, String nome) {
+    public FrameAcessorios(String acao, String nome,ListaPeca lista) {
         initComponents();
+        this.lista=lista;
         this.setLocationRelativeTo(null);
         this.setTitle("Acessorios");
         this.acao = acao;
@@ -228,7 +230,7 @@ public class FrameAcessorios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-        new FrameView().setVisible(true);
+        new FrameView(lista).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
@@ -244,6 +246,11 @@ public class FrameAcessorios extends javax.swing.JFrame {
                                 Integer.valueOf(jTextFieldQuantidade.getText()), jTextFieldNome.getText(),
                                 jTextFieldCor.getText(), Material.verifica(jComboBox1.getSelectedIndex()));
                         lista.incluir(incluir);
+                        try {
+                            lista.escreverArquivo();
+                        } catch (IOException e) {
+                            JOptionPane.showMessageDialog(null, "Erro ao escrever: " + e.getCause());
+                        }
                         String[] textMessages = {"Sim", "Não"};
                         int x = JOptionPane.showOptionDialog(null, "Deseja Incluir outra Peca", "Acessorio",
                                 JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE,
@@ -254,18 +261,18 @@ public class FrameAcessorios extends javax.swing.JFrame {
                                 limparCampos();
                                 break;
                             case 1:
-                                new FrameView().setVisible(true);
+                                new FrameView(lista).setVisible(true);
                                 this.dispose();
                                 break;
                             default:
-                                new FrameView().setVisible(true);
+                                new FrameView(lista).setVisible(true);
                                 this.dispose();
                                 break;
                         }
                         break;
                     } catch (IllegalArgumentException e) {
                         JOptionPane.showMessageDialog(null, e.getMessage());
-                        new FrameView().setVisible(true);
+                        new FrameView(lista).setVisible(true);
                         this.dispose();
                     }
 
@@ -276,12 +283,17 @@ public class FrameAcessorios extends javax.swing.JFrame {
                                 Integer.parseInt(jTextFieldQuantidade.getText()), jTextFieldNome.getText(),
                                 jTextFieldCor.getText(), Material.verifica(jComboBox1.getSelectedIndex()));
                         lista.editar(nome, editar);
-                        new FrameView().setVisible(true);
+                        try {
+                            lista.escreverArquivo();
+                        } catch (IOException e) {
+                            JOptionPane.showMessageDialog(null, "Erro ao escrever: " + e.getCause());
+                        }
+                        new FrameView(lista).setVisible(true);
                         this.dispose();
                         break;
                     } catch (IllegalArgumentException e) {
                         JOptionPane.showMessageDialog(null, e.getMessage());
-                        new FrameView().setVisible(true);
+                        new FrameView(lista).setVisible(true);
                         this.dispose();
                     }
 
@@ -333,7 +345,7 @@ public class FrameAcessorios extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrameAcessorios(null, null).setVisible(true);
+                new FrameAcessorios(null, null,null).setVisible(true);
             }
         });
     }
@@ -412,8 +424,7 @@ public class FrameAcessorios extends javax.swing.JFrame {
         }
         if (consultar == null) {
             JOptionPane.showMessageDialog(null, "Não encontrado!");
-            new FrameView().setVisible(true);
-            this.dispose();
+            desativarCampos();
         } else {
             preencherCampos(consultar);
         }

@@ -70,6 +70,14 @@ public class Acessorio extends PecaAuto{
     return dados;
     
     }
+
+    @Override
+    public String writeFile() {
+        String dados="";
+        dados= "Acessorio"+";"+fabricantePeca+";"+modeloCarro+";"+valor+";"+quantidade+";"+
+                nome+";"+cor+";"+material.getMaterial()+";\n";
+        return dados;
+    }
     
     
     

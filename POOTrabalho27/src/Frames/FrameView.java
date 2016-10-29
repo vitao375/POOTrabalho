@@ -8,6 +8,7 @@ package Frames;
 import ClassesPeca.Acessorio;
 import ClassesPeca.PecaAuto;
 import Lista.ListaPeca;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -19,16 +20,24 @@ import javax.swing.JOptionPane;
  */
 public class FrameView extends javax.swing.JFrame {
 
-    public static ListaPeca lista = new ListaPeca();
+    public ListaPeca lista = new ListaPeca();
     private List<PecaAuto> listaAcessorio = new ArrayList();
 
     /**
      * Creates new form FrameView
+     *
+     * @param lista
      */
-    public FrameView() {
+    public FrameView(ListaPeca lista) {
         //lista.lerArquivo();
         initComponents();
-        List<PecaAuto> aux;     
+        this.lista = lista;
+        try {
+            this.lista.lerArquivo();
+        }catch(Exception e){
+            
+        }
+        List<PecaAuto> aux;
         this.setLocationRelativeTo(null);
         this.setTitle("Peças Automotivas");
         //Arrumar os Preencher campos para alterar as comboBox também
@@ -222,19 +231,22 @@ public class FrameView extends javax.swing.JFrame {
 
         switch (x) {
             case 0:
-                FrameEletrica abrirEletrica = new FrameEletrica("Incluir", null);
+                FrameEletrica abrirEletrica = new FrameEletrica("Incluir", null, lista);
                 abrirEletrica.setVisible(true);
                 this.dispose();
                 break;
             case 1:
-                FrameAcessorios abrirAcessorio = new FrameAcessorios("Incluir", null);
+                FrameAcessorios abrirAcessorio = new FrameAcessorios("Incluir", null, lista);
                 abrirAcessorio.setVisible(true);
                 this.dispose();
                 break;
             case 2:
-                FrameMecanica abrirMecanica = new FrameMecanica("Incluir", null);
+                FrameMecanica abrirMecanica = new FrameMecanica("Incluir", null, lista);
                 abrirMecanica.setVisible(true);
                 this.dispose();
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Operação cancelada!");
                 break;
         }
     }//GEN-LAST:event_jButtonIncluirActionPerformed
@@ -243,12 +255,11 @@ public class FrameView extends javax.swing.JFrame {
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         String buscaTipo = jComboBoxBuscaTipo.getSelectedItem().toString();
         PecaAuto aux;
-        List<PecaAuto> listaAux;
+        List<PecaAuto> listaAux= new ArrayList();
         if (jTextFieldBusca.getText().trim().equals("")) {
             listaAux = lista.getLista();
             listar(listaAux);
         } else {
-            listaAux = new ArrayList();
             switch (buscaTipo) {
 
                 case "Buscar por Nome":
@@ -290,19 +301,21 @@ public class FrameView extends javax.swing.JFrame {
 
             switch (x) {
                 case 0:
-                    FrameEletrica abrirEletrica = new FrameEletrica("Editar", editar);
-                    abrirEletrica.setVisible(true);
                     this.dispose();
+                    new FrameEletrica("Editar", editar, lista).setVisible(true);
                     break;
                 case 1:
-                    FrameAcessorios abrirAcessorio = new FrameAcessorios("Editar", editar);
+                    FrameAcessorios abrirAcessorio = new FrameAcessorios("Editar", editar, lista);
                     abrirAcessorio.setVisible(true);
                     this.dispose();
                     break;
                 case 2:
-                    FrameMecanica abrirMecanica = new FrameMecanica("Editar", editar);
+                    FrameMecanica abrirMecanica = new FrameMecanica("Editar", editar, lista);
                     abrirMecanica.setVisible(true);
                     this.dispose();
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Operação cancelada!");
                     break;
             }
 
@@ -323,19 +336,22 @@ public class FrameView extends javax.swing.JFrame {
 
             switch (x) {
                 case 0:
-                    FrameEletrica abrirEletrica = new FrameEletrica("Consultar", detalhes);
+                    FrameEletrica abrirEletrica = new FrameEletrica("Consultar", detalhes, lista);
                     abrirEletrica.setVisible(true);
                     this.dispose();
                     break;
                 case 1:
-                    FrameAcessorios abrirAcessorio = new FrameAcessorios("Consultar", detalhes);
+                    FrameAcessorios abrirAcessorio = new FrameAcessorios("Consultar", detalhes, lista);
                     abrirAcessorio.setVisible(true);
                     this.dispose();
                     break;
                 case 2:
-                    FrameMecanica abrirMecanica = new FrameMecanica("Consultar", detalhes);
+                    FrameMecanica abrirMecanica = new FrameMecanica("Consultar", detalhes, lista);
                     abrirMecanica.setVisible(true);
                     this.dispose();
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Operação cancelada!");
                     break;
             }
         } else {
@@ -426,7 +442,7 @@ public class FrameView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrameView().setVisible(true);
+                new FrameView(null).setVisible(true);
             }
         });
     }

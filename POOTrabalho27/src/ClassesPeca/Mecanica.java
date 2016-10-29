@@ -51,5 +51,16 @@ public class Mecanica extends PecaAuto{
     return dados;
     
     }
+
+    @Override
+    public String writeFile() {
+        /**String fabricantePeca, String modeloCarro, Double valor, int quantidade, String nome, Tipo tipo
+         * 
+         */
+        String dados="";
+        dados = "Mecanica"+";"+fabricantePeca+";"+modeloCarro+";"+valor+";"+quantidade+";"+
+                nome+";"+tipo.getTipo()+";\n";
+        return dados;
+    }
        
 }

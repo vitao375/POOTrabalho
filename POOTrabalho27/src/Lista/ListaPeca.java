@@ -6,7 +6,17 @@
 package Lista;
 
 import ClassesPeca.Acessorio;
+import ClassesPeca.Eletrica;
+import ClassesPeca.Mecanica;
 import ClassesPeca.PecaAuto;
+import Enum.Material;
+import Enum.Sistemas;
+import Enum.Tipo;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +53,7 @@ public class ListaPeca implements IListaPeca {
     public void excluir(String nome) {
         PecaAuto peca = this.consultaPeca(nome);
 
-        if (this.lista.remove(peca)||peca!=null) {
+        if (this.lista.remove(peca) || peca != null) {
         } else {
             throw new IllegalArgumentException("Não foi possivél Excluir.");
         }
@@ -113,8 +123,7 @@ public class ListaPeca implements IListaPeca {
         return null;
 
     }
-    
-    
+
     @Override
     public PecaAuto consultarNomeA(String a) {
 
@@ -129,7 +138,6 @@ public class ListaPeca implements IListaPeca {
         return null;
 
     }
-    
 
     @Override
     public PecaAuto consultarFabricanteA(String a) {
@@ -145,9 +153,33 @@ public class ListaPeca implements IListaPeca {
         return null;
 
     }
-    
-    
-    
+
+    public void escreverArquivo() throws IOException{
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(System.getProperty("user.dir")
+                    + System.getProperty("file.separator") + "Peca" + ".csv"));
+
+            for (PecaAuto pecaAuto : lista) {
+                bw.write(pecaAuto.writeFile());
+                bw.newLine();
+            }
+            bw.close();
+        } catch (IOException e) {
+            throw new IOException();
+        }
+    }
+
+    public void lerArquivo() throws IOException {
+        String linha = "";
+        int cont = 0;
+        BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir")
+                + System.getProperty("file.separator") + "Peca" + ".csv"));
+        while (br.ready()) {
+            linha = br.readLine();
+            ler(linha);
+        }
+        br.close();
+    }
 
     /**
      * Método no qual retorna a lista PecaAuto
@@ -156,5 +188,53 @@ public class ListaPeca implements IListaPeca {
      */
     public List<PecaAuto> getLista() {
         return lista;
+    }
+
+    private void ler(String linha) {
+        String[] dados = null;
+        dados = linha.split(";");
+
+        switch (dados[0]) {
+            case "Acessorio":
+                String fabricante = dados[1];
+                String modeloCarro = dados[2];
+                Double valor = Double.valueOf(dados[3]);
+                int quantidade = Integer.parseInt(dados[4]);
+                String nome = dados[5];
+                String cor = dados[6];
+                int material = Integer.parseInt(dados[7]);
+
+                Acessorio acessorio = new Acessorio(fabricante, modeloCarro, valor,
+                        quantidade, nome, cor, Material.verifica(material));
+                lista.add(acessorio);
+
+                break;
+            case "Eletrica":
+                String fabricant = dados[1];
+                String modeloCarro1 = dados[2];
+                Double valor1 = Double.valueOf(dados[3]);
+                int quantidade1 = Integer.parseInt(dados[4]);
+                String nome1 = dados[5];
+                Double amperagem = Double.valueOf(dados[6]);
+                Double voltagem = Double.valueOf(dados[7]);
+                int sistema = Integer.parseInt(dados[8]);
+
+                Eletrica eletrica = new Eletrica(fabricant, modeloCarro1, valor1,
+                        quantidade1, nome1, amperagem, voltagem, Sistemas.verifica(sistema));
+                lista.add(eletrica);
+
+                break;
+            case "Mecanica":
+                String fabricante2 = dados[1];
+                String modeloCarro2 = dados[2];
+                Double valor2 = Double.valueOf(dados[3]);
+                int quantidade2 = Integer.parseInt(dados[4]);
+                String nome2 = dados[5];
+                int tipo = Integer.parseInt(dados[6]);
+
+                Mecanica mecanica = new Mecanica(fabricante2, modeloCarro2, valor2, quantidade2, nome2, Tipo.verifica(tipo));
+                break;
+
+        }
     }
 }

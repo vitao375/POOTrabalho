@@ -5,7 +5,6 @@
  */
 package Main;
 
-import Frames.FrameView;
 
 /**
  *
@@ -17,7 +16,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new FrameView().setVisible(true);
+        ListaStart.iniciar();
     }
     
 }

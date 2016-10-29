@@ -9,6 +9,7 @@ import ClassesPeca.Eletrica;
 import ClassesPeca.PecaAuto;
 import Enum.Sistemas;
 import Lista.ListaPeca;
+import java.io.IOException;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -18,7 +19,7 @@ import javax.swing.JOptionPane;
  */
 public class FrameEletrica extends javax.swing.JFrame {
 
-    public static ListaPeca lista = new ListaPeca();
+    public ListaPeca lista = new ListaPeca();
     private final String acao;
     private final String nome;
 
@@ -27,10 +28,11 @@ public class FrameEletrica extends javax.swing.JFrame {
      *
      * @param acao
      * @param nome
+     * @param lista
      */
-    public FrameEletrica(String acao, String nome) {
+    public FrameEletrica(String acao, String nome, ListaPeca lista) {
         initComponents();
-        List<PecaAuto> a = lista.getLista();
+        this.lista = lista;
         this.setLocationRelativeTo(null);
         this.setTitle("Peças Eletricas");
         this.acao = acao;
@@ -247,7 +249,7 @@ public class FrameEletrica extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-        new FrameView().setVisible(true);
+        new FrameView(lista).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
@@ -265,7 +267,11 @@ public class FrameEletrica extends javax.swing.JFrame {
                                 Double.valueOf(jTextFieldVoltagem.getText()),
                                 Sistemas.verifica(jComboBoxTipoSistema.getSelectedIndex()));
                         lista.incluir(incluir);
-
+                        try {
+                            lista.escreverArquivo();
+                        } catch (IOException e) {
+                            JOptionPane.showMessageDialog(null, "Erro ao escrever: " + e.getCause());
+                        }
                         String[] textMessages = {"Sim", "Não"};
                         int x = JOptionPane.showOptionDialog(null, "Deseja Incluir outra Peca", "Eletrica",
                                 JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE,
@@ -276,17 +282,17 @@ public class FrameEletrica extends javax.swing.JFrame {
                                 limparCampos();
                                 break;
                             case 1:
-                                new FrameView().setVisible(true);
+                                new FrameView(lista).setVisible(true);
                                 this.dispose();
                                 break;
                             default:
-                                new FrameView().setVisible(true);
+                                new FrameView(lista).setVisible(true);
                                 this.dispose();
                                 break;
                         }
                     } catch (IllegalArgumentException e) {
                         JOptionPane.showMessageDialog(null, e.getMessage());
-                        new FrameView().setVisible(true);
+                        new FrameView(lista).setVisible(true);
                         this.dispose();
                     }
 
@@ -300,11 +306,16 @@ public class FrameEletrica extends javax.swing.JFrame {
                                 Double.valueOf(jTextFieldVoltagem.getText()),
                                 Sistemas.verifica(jComboBoxTipoSistema.getSelectedIndex()));
                         lista.editar(nome, edita);
-                        new FrameView().setVisible(true);
+                        try {
+                            lista.escreverArquivo();
+                        } catch (IOException e) {
+                            JOptionPane.showMessageDialog(null, "Erro ao escrever: " + e.getCause());
+                        }
+                        new FrameView(lista).setVisible(true);
                         this.dispose();
                     } catch (IllegalArgumentException e) {
                         JOptionPane.showMessageDialog(null, e.getMessage());
-                        new FrameView().setVisible(true);
+                        new FrameView(lista).setVisible(true);
                         this.dispose();
                     }
 
@@ -393,9 +404,9 @@ public class FrameEletrica extends javax.swing.JFrame {
             jButtonSalvar.setEnabled(false);
         }
         if (consultar == null) {
-            JOptionPane.showMessageDialog(null, "Não encontrado!");
-            new FrameView().setVisible(true);
             this.dispose();
+            JOptionPane.showMessageDialog(null, "Não encontrado!");
+            desativarCampos();
         } else {
             preencherCampos(consultar);
         }
@@ -458,7 +469,7 @@ public class FrameEletrica extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrameEletrica(null, null).setVisible(true);
+                new FrameEletrica(null, null, null).setVisible(true);
             }
         });
     }

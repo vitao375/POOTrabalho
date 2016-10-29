@@ -9,6 +9,7 @@ import ClassesPeca.Mecanica;
 import ClassesPeca.PecaAuto;
 import Enum.Tipo;
 import Lista.ListaPeca;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,15 +18,16 @@ import javax.swing.JOptionPane;
  */
 public class FrameMecanica extends javax.swing.JFrame {
 
-    public static ListaPeca lista = new ListaPeca();
+    public ListaPeca lista = new ListaPeca();
     /**
      * Creates new form FrameMecanica
      */
     private final String acao;
     private final String nome;
 
-    public FrameMecanica(String acao, String nome) {
+    public FrameMecanica(String acao, String nome,ListaPeca lista) {
         initComponents();
+        this.lista = lista;
         this.setLocationRelativeTo(null);
         this.setTitle("Peças Mecanicas");
         this.acao = acao;
@@ -211,7 +213,7 @@ public class FrameMecanica extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
-        new FrameView().setVisible(true);
+        new FrameView(lista).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonVoltarActionPerformed
 
@@ -228,6 +230,11 @@ public class FrameMecanica extends javax.swing.JFrame {
                                 Tipo.verifica(jComboBoxTipo2.getSelectedIndex()));
 
                         lista.incluir(incluir);
+                        try {
+                            lista.escreverArquivo();
+                        } catch (IOException e) {
+                            JOptionPane.showMessageDialog(null, "Erro ao escrever: " + e.getCause());
+                        }
                         String[] textMessages = {"Sim", "Não"};
                         int x = JOptionPane.showOptionDialog(null, "Deseja Incluir outra Peca", "Mecanica",
                                 JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE,
@@ -238,17 +245,17 @@ public class FrameMecanica extends javax.swing.JFrame {
                                 limparCampos();
                                 break;
                             case 1:
-                                new FrameView().setVisible(true);
+                                new FrameView(lista).setVisible(true);
                                 this.dispose();
                                 break;
                             default:
-                                new FrameView().setVisible(true);
+                                new FrameView(lista).setVisible(true);
                                 this.dispose();
                                 break;
                         }
                     } catch (IllegalArgumentException e) {
                         JOptionPane.showMessageDialog(null, e.getMessage());
-                        new FrameView().setVisible(true);
+                        new FrameView(lista).setVisible(true);
                         this.dispose();
                     }
                     break;
@@ -260,12 +267,17 @@ public class FrameMecanica extends javax.swing.JFrame {
                                 Tipo.verifica(jComboBoxTipo2.getSelectedIndex()));
 
                         lista.editar(nome, edita);
-                        new FrameView().setVisible(true);
+                        try {
+                            lista.escreverArquivo();
+                        } catch (IOException e) {
+                            JOptionPane.showMessageDialog(null, "Erro ao escrever: " + e.getCause());
+                        }
+                        new FrameView(lista).setVisible(true);
                         this.dispose();
                         break;
                     } catch (IllegalArgumentException e) {
                         JOptionPane.showMessageDialog(null, e.getMessage());
-                        new FrameView().setVisible(true);
+                        new FrameView(lista).setVisible(true);
                         this.dispose();
                     }
 
@@ -312,7 +324,7 @@ public class FrameMecanica extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrameMecanica(null, null).setVisible(true);
+                new FrameMecanica(null, null,null).setVisible(true);
             }
         });
     }
@@ -389,8 +401,7 @@ public class FrameMecanica extends javax.swing.JFrame {
         }
         if (consultar == null) {
             JOptionPane.showMessageDialog(null, "Não encontrado!");
-            new FrameView().setVisible(true);
-            this.dispose();
+            desativarCampos();
         } else {
             preencherCampos(consultar);
         }

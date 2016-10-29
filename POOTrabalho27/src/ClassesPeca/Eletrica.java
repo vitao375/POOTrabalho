@@ -88,6 +88,14 @@ public class Eletrica extends PecaAuto{
     return dados;
     
     }
+
+    @Override
+    public String writeFile() {
+        String dados="";
+        dados = "Eletrica"+";"+fabricantePeca+";"+modeloCarro+";"+valor+";"+quantidade+";"+
+                nome+";"+amperagem+";"+voltagem+";"+sistema.getSistemas()+";\n";
+        return dados;
+    }
     
     
     

@@ -15,7 +15,6 @@ public abstract class PecaAuto {
     protected double valor;
     protected int quantidade;
     protected String nome;
-    protected String fabricanteP;
 
     /**
      * Construtor da classe PecaAuto que contem seus principais atributos
@@ -118,6 +117,8 @@ public abstract class PecaAuto {
     return dados;
     
     }
+
+    public abstract String writeFile();
     
     
     
