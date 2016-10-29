@@ -253,7 +253,7 @@ public class FrameEletrica extends javax.swing.JFrame {
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         if (verificaPreencher()) {
-            JOptionPane.showMessageDialog(null, "Informe todos os campos");
+            JOptionPane.showMessageDialog(null, "Informe todos os campos!");
         } else {
             switch (acao) {
                 case "Incluir":
@@ -393,7 +393,7 @@ public class FrameEletrica extends javax.swing.JFrame {
             jButtonSalvar.setEnabled(false);
         }
         if (consultar == null) {
-            JOptionPane.showMessageDialog(null, "Não encontrado");
+            JOptionPane.showMessageDialog(null, "Não encontrado!");
             new FrameView().setVisible(true);
             this.dispose();
         } else {
