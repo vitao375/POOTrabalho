@@ -25,7 +25,7 @@ public class FrameView extends javax.swing.JFrame {
 
     /**
      * Creates new form FrameView
-     *
+     * Recebe como parâmetro uma lista do tipo ListaPeca para manipulação de dados
      * @param lista
      */
     public FrameView(ListaPeca lista) {
@@ -33,6 +33,7 @@ public class FrameView extends javax.swing.JFrame {
         initComponents();
         this.lista = lista;
         try {
+            //Lê os arquivos do csv
             this.lista.lerArquivo();
         } catch (Exception e) {
 
@@ -40,7 +41,6 @@ public class FrameView extends javax.swing.JFrame {
         List<PecaAuto> aux;
         this.setLocationRelativeTo(null);
         this.setTitle("Peças Automotivas");
-        //Arrumar os Preencher campos para alterar as comboBox também
     }
 
     /**
@@ -224,11 +224,12 @@ public class FrameView extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldBuscaActionPerformed
 
     private void jButtonIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirActionPerformed
+        //Pergunta o tipo de Peca que deseja incluir
         String[] textMessages = {"Elétrica", "Acessorios", "Mecanica", "Cancelar"};
         int x = JOptionPane.showOptionDialog(null, "Escolha o tipo de Peça", "Incluir",
                 JOptionPane.WHEN_IN_FOCUSED_WINDOW, JOptionPane.QUESTION_MESSAGE,
                 null, textMessages, null);
-
+        //chame a frame referente ao tipo de peca desejado
         switch (x) {
             case 0:
                 FrameEletrica abrirEletrica = new FrameEletrica("Incluir", null, lista);
@@ -253,6 +254,7 @@ public class FrameView extends javax.swing.JFrame {
 //Buscar por Nome, Buscar por Fabricante
 //Peças em Geral, Peças Eletricas, Peças Mecanicas, Acessorios
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
+        //Pega o tipo de busca da comboBox
         String buscaTipo = jComboBoxBuscaTipo.getSelectedItem().toString();
         PecaAuto aux;
         List<PecaAuto> listaAux = new ArrayList();
@@ -261,7 +263,8 @@ public class FrameView extends javax.swing.JFrame {
             listar(listaAux);
         } else {
             switch (buscaTipo) {
-
+                //Chama o metodo de consulta selecionado e o método listar com a lista 
+                //referente ao resultado da consulta
                 case "Buscar por Nome":
                     aux = lista.consultaPeca(jTextFieldBusca.getText());
                     if (aux != null) {
@@ -291,14 +294,15 @@ public class FrameView extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxBuscaTipoItemStateChanged
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-
+        //pergunta qual o nome da peca
         String editar = JOptionPane.showInputDialog(null, "Informe o Nome da peca a ser Editada");
         if (editar != null) {
+            //pergunta qual o tipo de peca
             String[] textMessages = {"Elétrica", "Acessorios", "Mecanica", "Cancelar"};
             int x = JOptionPane.showOptionDialog(null, "Escolha o tipo de Peça", "Editar",
                     JOptionPane.WHEN_IN_FOCUSED_WINDOW, JOptionPane.QUESTION_MESSAGE,
                     null, textMessages, null);
-
+            //chama as frame com o tipo selecionado
             switch (x) {
                 case 0:
                     this.dispose();
@@ -326,14 +330,15 @@ public class FrameView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonDetalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDetalhesActionPerformed
-
+        //pergunta qual o nome da peca
         String detalhes = JOptionPane.showInputDialog(null, "Informe o Nome da peca a ser Consultada");
         if (detalhes != null) {
+            //pergunta qual o tipo de peca
             String[] textMessages = {"Elétrica", "Acessorios", "Mecanica", "Cancelar"};
             int x = JOptionPane.showOptionDialog(null, "Escolha o tipo de Peça", "Detalhes",
                     JOptionPane.WHEN_IN_FOCUSED_WINDOW, JOptionPane.QUESTION_MESSAGE,
                     null, textMessages, null);
-
+            //chama as frame com o tipo selecionado
             switch (x) {
                 case 0:
                     FrameEletrica abrirEletrica = new FrameEletrica("Consultar", detalhes, lista);
@@ -362,8 +367,10 @@ public class FrameView extends javax.swing.JFrame {
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         String excluir = JOptionPane.showInputDialog(null, "Informe o Nome da peca a ser Excluida");
-        if (excluir != null) {
+        //recebe o nome da Peca a ser excluida
+        if (!excluir.equals("") || excluir != null) {
             try {
+                //Tenta excluir caso não seja possivel printa a mensagem de erro
                 lista.excluir(excluir);
             } catch (IllegalArgumentException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
@@ -378,6 +385,7 @@ public class FrameView extends javax.swing.JFrame {
         String buscaTipo = jComboBoxBuscaTipo.getSelectedItem().toString();
         PecaAuto aux;
         List<PecaAuto> listaAux;
+        //testa se o campos está vazio e caso sim envia para o listar todos os elementos
         if (jTextFieldBusca.getText().trim().equals("")) {
             listaAux = lista.getLista();
             listar(listaAux);
@@ -386,6 +394,7 @@ public class FrameView extends javax.swing.JFrame {
             switch (buscaTipo) {
 
                 case "Buscar por Nome":
+                    //faz a busca por nome
                     aux = lista.consultarNomeA(jTextFieldBusca.getText());
                     if (aux != null) {
                         listaAux.add(aux);
@@ -396,6 +405,7 @@ public class FrameView extends javax.swing.JFrame {
 
                     break;
                 case "Buscar por Fabricante":
+                    //faz a busca por fabricante
                     aux = lista.consultarFabricanteA(jTextFieldBusca.getText());
                     if (aux != null) {
                         listaAux.add(aux);
@@ -466,6 +476,11 @@ public class FrameView extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldBusca;
     // End of variables declaration//GEN-END:variables
     
+    /**
+     * Métodos para inserir elementos na listaPadrão e mostrar ao usuário
+     * 
+     * @param peca para saber quais elementos devem ser inseridos na lista
+     */
     public void listar(List<PecaAuto> peca) {
         DefaultListModel listaPadrao = new DefaultListModel();
         for (PecaAuto p : peca) {

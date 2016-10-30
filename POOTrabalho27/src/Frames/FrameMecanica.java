@@ -328,7 +328,11 @@ public class FrameMecanica extends javax.swing.JFrame {
             }
         });
     }
-
+     /**
+     * Prencher todos os campos e recebe como parametro PecaAuto p que indica os
+     * valores a serem inseridos
+     * @param p 
+     */
     public void preencherCampos(PecaAuto p) {
         Mecanica m = (Mecanica) p;
         jTextFieldFabricante.setText(m.getFabricantePeca());
@@ -337,7 +341,7 @@ public class FrameMecanica extends javax.swing.JFrame {
         jTextFieldQuantidade.setText(String.valueOf(m.getQuantidade()));
         jTextFieldValor.setText(String.valueOf(m.getValor()));
     }
-
+     //Apenas limpa todos os campos
     public void limparCampos() {
         jTextFieldFabricante.setText("");
         jTextFieldModelo.setText("");
@@ -345,7 +349,7 @@ public class FrameMecanica extends javax.swing.JFrame {
         jTextFieldQuantidade.setText("");
         jTextFieldValor.setText("");
     }
-
+     //Apenas desativa todos os campos
     public void desativarCampos() {
         jTextFieldFabricante.setEnabled(false);
         jTextFieldModelo.setEnabled(false);
@@ -353,7 +357,7 @@ public class FrameMecanica extends javax.swing.JFrame {
         jTextFieldQuantidade.setEnabled(false);
         jTextFieldValor.setEnabled(false);
     }
-
+    //Apenas ativa todos os campos
     public void ativarCampos() {
         jTextFieldFabricante.setEnabled(true);
         jTextFieldModelo.setEnabled(true);
@@ -361,13 +365,22 @@ public class FrameMecanica extends javax.swing.JFrame {
         jTextFieldQuantidade.setEnabled(true);
         jTextFieldValor.setEnabled(true);
     }
-
+    /**
+     * Verifica se os campos foram preenchidos
+     * @return false caso todos estejam preenchidos ou true caso contrário
+     * 
+     */
     public boolean verificaPreencher() {
         if (jTextFieldFabricante.getText() == null
                 || jTextFieldModelo.getText() == null
                 || jTextFieldNome.getText() == null
                 || jTextFieldQuantidade.getText() == null
-                || jTextFieldValor.getText() == null) {
+                || jTextFieldValor.getText() == null
+                || jTextFieldFabricante.getText().equals("")
+                || jTextFieldModelo.getText().equals("")
+                || jTextFieldNome.getText().equals("")
+                || jTextFieldQuantidade.getText().equals("")
+                || jTextFieldValor.getText().equals("")) {
             return true;
         } else {
             return false;
@@ -392,7 +405,11 @@ public class FrameMecanica extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldQuantidade;
     private javax.swing.JTextField jTextFieldValor;
     // End of variables declaration//GEN-END:variables
-
+    
+    /**
+     * Preenche todos os campos e desativa se necessário quando acao for Consultar
+     * ou editar. Também faz a pesquisa do objeto para preencher o campo.
+     */
     private void consultar() {
         Mecanica consultar = (Mecanica) lista.consultaPeca(nome);
         if (acao.equals("Consultar")) {
@@ -407,14 +424,25 @@ public class FrameMecanica extends javax.swing.JFrame {
             preencherCampos(consultar);
         }
     }
-
+    
+    /**
+     * Verifica o evento para impedir qualquer coisa quenão seja número de ser inserida
+     * @param evt 
+     */
     public void soNumeros(java.awt.event.KeyEvent evt) {
         char aux = evt.getKeyChar();
         if (!Character.isDigit(aux)) {
             evt.consume();
         }
     }
-
+    
+    /**
+     * Verifica o evento para impedir qualquer coisa quenão seja número de ser inserida
+     * porém permite um único ponto devido ser double e recebe como parametro a String
+     * text para fazer a validação
+     * @param evt 
+     * @param text 
+     */
     public void soDouble(java.awt.event.KeyEvent evt, String text) {
         char aux = evt.getKeyChar();
         int tem = 0;

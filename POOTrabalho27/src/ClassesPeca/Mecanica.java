@@ -43,7 +43,10 @@ public class Mecanica extends PecaAuto{
     public void setTipo(Tipo tipo) {
         this.tipo = tipo;
     }
-    
+    /**
+     * Método que retorna os dados da classe
+     * @return dados
+     */
     @Override
     public String toString() {
         String dados=super.toString();
@@ -51,7 +54,10 @@ public class Mecanica extends PecaAuto{
     return dados;
     
     }
-
+    /**
+     * Método que retorna dados para escrita em CSV
+     * @return dados
+     */
     @Override
     public String writeFile() {
         /**String fabricantePeca, String modeloCarro, Double valor, int quantidade, String nome, Tipo tipo

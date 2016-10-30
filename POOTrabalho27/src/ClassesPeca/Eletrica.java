@@ -77,7 +77,10 @@ public class Eletrica extends PecaAuto{
     public void setSistema(Sistemas sistema) {
         this.sistema = sistema;
     }
-    
+    /**
+     * Método que retorna os dados da classe
+     * @return dados
+     */
     @Override
     public String toString() {
         String dados=super.toString();
@@ -88,7 +91,10 @@ public class Eletrica extends PecaAuto{
     return dados;
     
     }
-
+    /**
+     * Método que retorna dados para escrita em CSV
+     * @return dados
+     */
     @Override
     public String writeFile() {
         String dados="";

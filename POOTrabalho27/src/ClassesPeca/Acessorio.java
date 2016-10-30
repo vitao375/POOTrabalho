@@ -59,7 +59,10 @@ public class Acessorio extends PecaAuto{
     public void setMaterial(Material material) {
         this.material = material;
     }
-    
+    /**
+     * Retorna os dados da classe
+     * @return dados 
+     */
     @Override
     public String toString() {
         String dados=super.toString();
@@ -70,7 +73,10 @@ public class Acessorio extends PecaAuto{
     return dados;
     
     }
-
+    /**
+     * Método para escrita em CSV que retorna uma String com os dados
+     * @return dados
+     */
     @Override
     public String writeFile() {
         String dados="";

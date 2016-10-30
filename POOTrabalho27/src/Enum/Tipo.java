@@ -12,11 +12,20 @@ package Enum;
  * @author vitao375
  */
 public enum Tipo {
+    //atributos do ENUM
     MOTOR(0),DIRECAO(1), TRANSMISSAO(2), SUSPENSAO(3), FREIO(4), OUTRO(5); 
+    
+    //variavel para saber o tipo
     private final int tipo;
+    
+    //construtor privado que recebe o número do tipo e atribui a variavel tipo
     private Tipo(int tipo){
         this.tipo=tipo;
     }
+    /**
+     * retorna o int do Tipo
+     * @return tipo 
+     */
     public int getTipo(){
         return tipo;
     }

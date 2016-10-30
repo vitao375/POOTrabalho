@@ -105,7 +105,10 @@ public abstract class PecaAuto {
     }
 
    
-
+    /**
+     * Dados da classe mãe
+     * @return 
+     */
     @Override
     public String toString() {
         String dados="";
@@ -117,7 +120,10 @@ public abstract class PecaAuto {
     return dados;
     
     }
-
+    /**
+     * Método abstrato que obriga as filhas a implementarem o mesmo
+     * @return dados
+     */
     public abstract String writeFile();
     
     

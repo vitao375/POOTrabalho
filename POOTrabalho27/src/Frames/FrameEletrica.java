@@ -339,7 +339,12 @@ public class FrameEletrica extends javax.swing.JFrame {
     private void jTextFieldVoltagemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldVoltagemKeyTyped
         soDouble(evt, jTextFieldVoltagem.getText());
     }//GEN-LAST:event_jTextFieldVoltagemKeyTyped
-
+    
+    /**
+     * Verifica se os campos foram preenchidos
+     * @return false caso todos estejam preenchidos ou true caso contrário
+     * 
+     */
     public boolean verificaPreencher() {
         if (jTextFieldFabricante.getText() == null
                 || jTextFieldModelo.getText() == null
@@ -347,14 +352,25 @@ public class FrameEletrica extends javax.swing.JFrame {
                 || jTextFieldQuantidade.getText() == null
                 || jTextFieldValor.getText() == null
                 || jTextFieldAmperagem.getText() == null
-                || jTextFieldVoltagem.getText() == null) {
+                || jTextFieldVoltagem.getText() == null
+                ||jTextFieldFabricante.getText().equals("")
+                || jTextFieldModelo.getText().equals("")
+                || jTextFieldNome.getText().equals("")
+                || jTextFieldQuantidade.getText().equals("")
+                || jTextFieldValor.getText().equals("")
+                || jTextFieldAmperagem.getText().equals("")
+                || jTextFieldVoltagem.getText().equals("")) {
             return true;
         } else {
             return false;
         }
 
     }
-
+    /**
+     * Prencher todos os campos e recebe como parametro PecaAuto p que indica os
+     * valores a serem inseridos
+     * @param p 
+     */
     public void preencherCampos(PecaAuto p) {
         Eletrica e = (Eletrica) p;
         jTextFieldFabricante.setText(e.getFabricantePeca());
@@ -365,7 +381,7 @@ public class FrameEletrica extends javax.swing.JFrame {
         jTextFieldAmperagem.setText(String.valueOf(e.getAmperagem()));
         jTextFieldVoltagem.setText(String.valueOf(e.getVoltagem()));
     }
-
+    //apenas limpa todos os campos
     public void limparCampos() {
         jTextFieldFabricante.setText("");
         jTextFieldModelo.setText("");
@@ -375,7 +391,7 @@ public class FrameEletrica extends javax.swing.JFrame {
         jTextFieldAmperagem.setText("");
         jTextFieldVoltagem.setText("");
     }
-
+    //apenas desativa todos os campos
     public void desativarCampos() {
         jTextFieldFabricante.setEnabled(false);
         jTextFieldModelo.setEnabled(false);
@@ -385,7 +401,7 @@ public class FrameEletrica extends javax.swing.JFrame {
         jTextFieldAmperagem.setEnabled(false);
         jTextFieldVoltagem.setEnabled(false);
     }
-
+    //apenas ativa todos os campos
     public void ativarCampos() {
         jTextFieldFabricante.setEnabled(true);
         jTextFieldModelo.setEnabled(true);
@@ -395,7 +411,11 @@ public class FrameEletrica extends javax.swing.JFrame {
         jTextFieldAmperagem.setEnabled(true);
         jTextFieldVoltagem.setEnabled(true);
     }
-
+    
+    /**
+     * Preenche todos os campos e desativa se necessário quando acao for Consultar
+     * ou editar. Também faz a pesquisa do objeto para preencher o campo.
+     */
     public final void consultar() {
         Eletrica consultar = (Eletrica) lista.consultaPeca(nome);
         if (acao.equals("Consultar")) {
@@ -412,7 +432,11 @@ public class FrameEletrica extends javax.swing.JFrame {
         }
 
     }
-
+    
+    /**
+     * Verifica o evento para impedir qualquer coisa quenão seja número de ser inserida
+     * @param evt 
+     */
     public void soNumeros(java.awt.event.KeyEvent evt) {
         char aux = evt.getKeyChar();
         if (!Character.isDigit(aux)) {
@@ -420,6 +444,13 @@ public class FrameEletrica extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Verifica o evento para impedir qualquer coisa quenão seja número de ser inserida
+     * porém permite um único ponto devido ser double e recebe como parametro a String
+     * text para fazer a validação
+     * @param evt 
+     * @param text 
+     */
     public void soDouble(java.awt.event.KeyEvent evt, String text) {
         char aux = evt.getKeyChar();
         int tem = 0;

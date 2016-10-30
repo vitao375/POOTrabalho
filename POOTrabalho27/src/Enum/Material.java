@@ -9,13 +9,19 @@ package Enum;
  *
  * @author vitao375
  */
-public enum Material {
+public enum Material {//variavel para saber o tipo
+    //Atributos do ENUM
+    PLASTICO(0),METAL(1),CARBONO(2),OUTRO(3);
     
-    PLASTICO(0),METAL(1),CARBONO(2),OUTRO(3); 
     private final int tipo;
+    //construtor privado que recebe o número do tipo e atribui a variavel tipo
     private Material(int tipo){
         this.tipo=tipo;
     }
+    /**
+     * retorna o int do material
+     * @return tipo 
+     */
     public int getMaterial(){
         return tipo;
     }

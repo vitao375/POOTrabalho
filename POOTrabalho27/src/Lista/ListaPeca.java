@@ -123,7 +123,11 @@ public class ListaPeca implements IListaPeca {
         return null;
 
     }
-
+    /**
+     * Consulta por nome do acessorio
+     * @param a
+     * @return pecaAuto ou o null
+     */
     @Override
     public PecaAuto consultarNomeA(String a) {
 
@@ -138,7 +142,11 @@ public class ListaPeca implements IListaPeca {
         return null;
 
     }
-
+    /**
+     * Consulta por fabricante do acessorio
+     * @param a
+     * @return pecaAuto ou null
+     */
     @Override
     public PecaAuto consultarFabricanteA(String a) {
 
@@ -153,7 +161,11 @@ public class ListaPeca implements IListaPeca {
         return null;
 
     }
-
+    /**
+     * Escreve no csv usando o métdo writeFile() presente em todas as classes filhas de
+     * PecaAuto
+     * @throws IOException 
+     */
     public void escreverArquivo() throws IOException{
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(System.getProperty("user.dir")
@@ -168,7 +180,12 @@ public class ListaPeca implements IListaPeca {
             throw new IOException();
         }
     }
-
+    
+    /**
+     * Lê os dados do CSV percorrendo todas as linha e chamando o método ler enviando
+     * apenas a linha atual
+     * @throws IOException 
+     */
     public void lerArquivo() throws IOException {
         String linha = "";
         int cont = 0;
@@ -190,7 +207,11 @@ public class ListaPeca implements IListaPeca {
     public List<PecaAuto> getLista() {
         return lista;
     }
-
+    /**
+     * Recebe uma linha e cria um novo objeto relacionado as informações presentes
+     * na linha
+     * @param linha 
+     */
     private void ler(String linha) {
         String[] dados = null;
         dados = linha.split(";");

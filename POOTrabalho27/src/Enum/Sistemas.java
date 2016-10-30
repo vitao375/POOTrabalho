@@ -10,11 +10,21 @@ package Enum;
  * @author vitao375
  */
 public enum Sistemas {
+    //atributos do ENUM
     IGNICAO(0), ALIMENTACAO(1), SINALIZACAO(2), OUTRO(3);
+    
+    //variavel para saber o tipo
     private final int tipo;
+    
+    //construtor privado que recebe o número do tipo e atribui a variavel tipo
     private Sistemas(int tipo){
         this.tipo = tipo;
     }
+    
+    /**
+     * Retorna o indice do sistema
+     * @return tipo
+     */
     public int getSistemas(){
         return tipo;
     }
