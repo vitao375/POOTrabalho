@@ -366,7 +366,7 @@ public class FrameView extends javax.swing.JFrame {
             try {
                 lista.excluir(excluir);
             } catch (IllegalArgumentException e) {
-                JOptionPane.showMessageDialog(null, "Operação cancelada! " + e.getMessage());
+                JOptionPane.showMessageDialog(null, e.getMessage());
             }
         } else {
             JOptionPane.showMessageDialog(null, "Operação cancelada!");

@@ -406,6 +406,7 @@ public class FrameEletrica extends javax.swing.JFrame {
             this.dispose();
             JOptionPane.showMessageDialog(null, "Não encontrado!");
             desativarCampos();
+            jButtonSalvar.setEnabled(false);
         } else {
             preencherCampos(consultar);
         }

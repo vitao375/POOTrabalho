@@ -402,6 +402,7 @@ public class FrameMecanica extends javax.swing.JFrame {
         if (consultar == null) {
             JOptionPane.showMessageDialog(null, "Não encontrado!");
             desativarCampos();
+            jButtonSalvar.setEnabled(false);
         } else {
             preencherCampos(consultar);
         }
