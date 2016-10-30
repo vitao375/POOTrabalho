@@ -340,6 +340,7 @@ public class FrameMecanica extends javax.swing.JFrame {
         jTextFieldNome.setText(m.getNome());
         jTextFieldQuantidade.setText(String.valueOf(m.getQuantidade()));
         jTextFieldValor.setText(String.valueOf(m.getValor()));
+        jComboBoxTipo2.setSelectedIndex(m.getTipo().getTipo());
     }
      //Apenas limpa todos os campos
     public void limparCampos() {

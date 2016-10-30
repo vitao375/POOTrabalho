@@ -362,7 +362,7 @@ public class FrameAcessorios extends javax.swing.JFrame {
         jTextFieldNome.setText(a.getNome());
         jTextFieldQuantidade.setText(String.valueOf(a.getQuantidade()));
         jTextFieldValor.setText(String.valueOf(a.getValor()));
-        //jComboBox1.setSelectedIndex(a.getMaterial());
+        jComboBox1.setSelectedIndex(a.getMaterial().getMaterial());
     }
     /**
      * apenas limpa todos os campos

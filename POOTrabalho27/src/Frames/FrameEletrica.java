@@ -10,7 +10,6 @@ import ClassesPeca.PecaAuto;
 import Enum.Sistemas;
 import Lista.ListaPeca;
 import java.io.IOException;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -380,6 +379,7 @@ public class FrameEletrica extends javax.swing.JFrame {
         jTextFieldValor.setText(String.valueOf(e.getValor()));
         jTextFieldAmperagem.setText(String.valueOf(e.getAmperagem()));
         jTextFieldVoltagem.setText(String.valueOf(e.getVoltagem()));
+        jComboBoxTipoSistema.setSelectedIndex(e.getSistema().getSistemas());
     }
     //apenas limpa todos os campos
     public void limparCampos() {
